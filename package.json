@@ -1,0 +1,28 @@
+{
+    "name": "npm-template",
+    "version": "1.0.0",
+    "description": "A minimalist template to build npm modules.",
+    "bin": {
+        "hello": "./cli.js"
+    },
+    "main": "index.js",
+    "scripts": {
+        "test": "tape test.js"
+    },
+    "keywords": [
+        "boilerplate",
+        "minimalist",
+        "npm",
+        "template"
+    ],
+    "author": "Ro Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
+    "license": "ISC",
+    "devDependencies": {
+        "tape": "^4.5.1"
+    },
+    "dependencies": {
+        "express": "^4.13.4",
+        "mbtiles": "^0.9.0",
+        "minimist": "^1.2.0"
+    }
+}

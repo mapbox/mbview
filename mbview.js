@@ -18,7 +18,7 @@ module.exports = {
 
         new MBTiles(config.mbtiles, function(err, tiles) {
             if (err) throw err;
-            tiles.getInfo((err, data) => {
+            tiles.getInfo(function (err, data) {
                 if (err) throw err;
                 console.log('*** Metadata found in the MBTiles');
                 console.log(data);
@@ -34,14 +34,14 @@ module.exports = {
     },
 
     listen: function (config, tiles, onListen) {
-        app.get('/', (req, res) => {
+        app.get('/', function (req, res) {
             res.render('map', config);
         });
 
-        app.get('/debug/:z/:x/:y.pbf', (req, res) => {
+        app.get('/debug/:z/:x/:y.pbf', function (req, res) {
             var p = req.params;
             console.log('Serving', p.z + '/' + p.x + '/' + p.y);
-            tiles.getTile(p.z, p.x, p.y, (err, tile, headers) => {
+            tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
                 if (err) {
                     console.error(err);
                     res.end();

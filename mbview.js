@@ -47,10 +47,8 @@ module.exports = {
                     res.end();
                 } else {
                     console.log(headers);
-                    res.setHeader('Content-Type', headers['Content-Type']);
-                    res.setHeader('Content-Encoding', headers['Content-Encoding']);
-                    res.setHeader('Last-Modified', headers['Last-Modified']);
-                    res.send(tile);
+                    res.writeHead(200, headers);
+                    res.end(tile);
                 }
             });
         });

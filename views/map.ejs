@@ -19,31 +19,30 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kb3dpIiwiYSI6ImdZdDkyQU0ifQ.bPu86kwHgaenPh
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v8',
-    center: [-122.42, 37.75],
-    zoom: 12
+    center: [<%= config.center %>],
+    zoom: <%= config.zoom %>
 });
 map.on('load', function () {
     map.addSource('debug', {
         type: 'vector',
         tiles: [
-            // TODO: port should be set dynamically
-            'http://localhost:3000/debug/{z}/{x}/{y}.pbf'
+            'http://localhost:<%= config.port %>/debug/{z}/{x}/{y}.pbf'
         ],
         maxzoom: 12
     });
 
     map.addLayer({
-        'id': 'sf01',
+        'id': '<%= config.sourceId %>',
         'type': 'line',
         'source': 'debug',
-        'source-layer': 'tracks', // TODO: dynamically set
+        'source-layer': '<%= config.sourceLayer %>',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'
         },
         'paint': {
             'line-color': '#ff69b4',
-            'line-width': 1 // TODO: adjust from cli or config
+            'line-width': 1
         }
     });
 });

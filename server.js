@@ -1,14 +1,22 @@
 var argv = require('minimist')(process.argv.slice(2));
-var express = require('express');
-var app = express();
-var MBTiles = require('mbtiles');
-var tiles = null;
-var port = argv.port || 3000;
 
 if (!argv.mbtiles) {
     console.log(usage());
     process.exit(1);
 }
+
+var express = require('express');
+var app = express();
+var MBTiles = require('mbtiles');
+var path = require('path');
+var tiles = null;
+var config = {
+    center: [-122.42709159851074, 37.75987547727969],
+    port: argv.port || 3000,
+    sourceLayer: path.basename(argv.mbtiles, '.mbtiles'),
+    sourceId: 'default',
+    zoom: 12
+};
 
 function usage () {
     var text = [];
@@ -37,15 +45,19 @@ function loadTiles(path) {
             if (err) throw err;
             console.log('*** Metadata found in the MBTiles');
             console.log(data);
+            // MBTiles returns center as [lon, lat, zoom]
+            config.zoom = data.center.pop();
+            config.center = data.center;
+            // SEE server input in console for more info on these params
+            config.sourceId = data.id;
+            config.sourceLayer = data.vector_layers[0].id;
         });
     });
 
 }
 
-app.use(express.static('public'));
-
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('map', { config: config });
 });
 
 app.get('/debug/:z/:x/:y.pbf', (req, res) => {
@@ -65,7 +77,10 @@ app.get('/debug/:z/:x/:y.pbf', (req, res) => {
     });
 });
 
-app.listen(port, function () {
-    console.log('Listening on http://localhost:' + port);
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+app.listen(config.port, function () {
+    console.log('Listening on http://localhost:' + config.port);
     loadTiles(argv.mbtiles);
 });

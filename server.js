@@ -35,7 +35,7 @@ function loadTiles(path) {
     const mb = new MBTiles(path, function(err, mbtiles) {
         if (err) throw err;
         tiles = mbtiles;
-        mbtiles.getInfo((err, data) => {
+        mbtiles.getInfo(function(err, data) {
             if (err) throw err;
             console.log('*** Metadata found in the MBTiles');
             console.log(data);
@@ -50,14 +50,14 @@ function loadTiles(path) {
 
 }
 
-app.get('/', (req, res) => {
+app.get('/', function(req, res) {
     res.render('map', { config: config });
 });
 
-app.get('/debug/:z/:x/:y.pbf', (req, res) => {
+app.get('/debug/:z/:x/:y.pbf', function(req, res) {
     var p = req.params;
     console.log('Serving', p.z + '/' + p.x + '/' + p.y);
-    tiles.getTile(p.z, p.x, p.y, (err, tile, headers) => {
+    tiles.getTile(p.z, p.x, p.y, function(err, tile, headers) {
         if (err) {
             console.error(err);
             res.end();

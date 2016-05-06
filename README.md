@@ -9,3 +9,10 @@ Watch MBTiles in your localhost
 % open http://localhost:9000
 % node cli.js --mbtiles ~/foo.mbtiles --port 9000
 ```
+
+Global install
+
+```bash
+% npm install -g mbview
+% mbview
+```

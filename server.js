@@ -29,12 +29,6 @@ function usage () {
     return text.join('\n');
 }
 
-/**
-*
-* References:
-* https://github.com/mapbox/node-mbtiles/blob/master/lib/mbtiles.js#L149
-*
-*/
 function loadTiles(path) {
     console.log('*** Reading from', path);
 

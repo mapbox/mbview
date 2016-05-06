@@ -19,23 +19,23 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kb3dpIiwiYSI6ImdZdDkyQU0ifQ.bPu86kwHgaenPh
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v8',
-    center: [<%= config.center %>],
-    zoom: <%= config.zoom %>
+    center: [<%= center %>],
+    zoom: <%= zoom %>
 });
 map.on('load', function () {
     map.addSource('debug', {
         type: 'vector',
         tiles: [
-            'http://localhost:<%= config.port %>/debug/{z}/{x}/{y}.pbf'
+            'http://localhost:<%= port %>/debug/{z}/{x}/{y}.pbf'
         ],
         maxzoom: 12
     });
 
     map.addLayer({
-        'id': '<%= config.sourceId %>',
+        'id': '<%= sourceId %>',
         'type': 'line',
         'source': 'debug',
-        'source-layer': '<%= config.sourceLayer %>',
+        'source-layer': '<%= sourceLayer %>',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round'

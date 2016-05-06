@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Watch mbtiles in your localhost",
     "bin": {
-        "mbview": "./server.js"
+        "mbview": "./cli.js"
     },
     "main": "server.js",
     "scripts": {

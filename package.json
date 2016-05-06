@@ -1,22 +1,21 @@
 {
-    "name": "npm-template",
+    "name": "mbview",
     "version": "1.0.0",
-    "description": "A minimalist template to build npm modules.",
+    "description": "Watch mbtiles in your localhost",
     "bin": {
-        "hello": "./cli.js"
+        "mbview": "./server.js"
     },
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
         "test": "tape test.js"
     },
     "keywords": [
-        "boilerplate",
-        "minimalist",
-        "npm",
-        "template"
+        "localhost",
+        "mapbox",
+        "mbtiles"
     ],
-    "author": "Ro Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
-    "license": "ISC",
+    "author": "Rodolfo Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
+    "license": "MIT",
     "devDependencies": {
         "tape": "^4.5.1"
     },

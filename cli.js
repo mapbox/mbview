@@ -14,6 +14,7 @@ function usage () {
     text.push('');
     text.push(' --mbtiles path to mbtiles file');
     text.push(' --port sets port to use');
+    text.push(' --quiet or -q supress all logging except the address to visit');
     text.push(' --help prints this message');
     text.push('');
     return text.join('\n');
@@ -26,9 +27,10 @@ var params = {
     port: argv.port || 3000,
     sourceLayer: argv.sourceLayer || path.basename(argv.mbtiles, '.mbtiles'),
     sourceId: 'default',
-    zoom: 12
+    zoom: 12,
+    quiet: argv.q || argv.quiet
 };
 
 MBView.serve(params, function (err, config) {
-    console.log('Listening on http://localhost:' + config.port);
+    console.log('Serving on http://localhost:' + config.port);
 });

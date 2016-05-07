@@ -14,15 +14,18 @@ module.exports = {
      * @param {Function} a callback with the server configuration loaded
      */
     serve: function (config, callback) {
-        console.log('*** Reading from', config.mbtiles);
+        if (!config.quiet) console.log('*** Reading from', config.mbtiles);
         var listen = this.listen;
 
         new MBTiles(config.mbtiles, function(err, tiles) {
             if (err) throw err;
             tiles.getInfo(function (err, data) {
                 if (err) throw err;
-                console.log('*** Metadata found in the MBTiles');
-                console.log(data);
+
+                if (!config.quiet) {
+                    console.log('*** Metadata found in the MBTiles');
+                    console.log(data);
+                }
 
                 config.maxzoom = data.maxzoom;
                 config.zoom = data.center.pop();
@@ -42,13 +45,13 @@ module.exports = {
 
         app.get('/debug/:z/:x/:y.pbf', function (req, res) {
             var p = req.params;
-            console.log('Serving', p.z + '/' + p.x + '/' + p.y);
+            if (!config.quiet) console.log('Serving', p.z + '/' + p.x + '/' + p.y);
+
             tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
                 if (err) {
-                    console.error(err);
                     res.end();
                 } else {
-                    console.log(headers);
+                    if (!config.quiet) console.log(headers);
                     res.writeHead(200, headers);
                     res.end(tile);
                 }
@@ -59,5 +62,4 @@ module.exports = {
             onListen(null, config);
         });
     }
-
-}
+};

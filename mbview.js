@@ -24,6 +24,7 @@ module.exports = {
                 console.log('*** Metadata found in the MBTiles');
                 console.log(data);
 
+                config.maxzoom = data.maxzoom;
                 config.zoom = data.center.pop();
                 config.center = data.center;
                 config.sourceId = data.id;

@@ -20,7 +20,9 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v8',
     center: [<%= center %>],
-    zoom: <%= zoom %>
+    zoom: <%= zoom %>,
+    hash: true,
+    maxZoom: 30
 });
 map.on('load', function () {
     map.addSource('debug', {

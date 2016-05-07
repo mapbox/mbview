@@ -3,6 +3,7 @@
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var open = require('open');
+var fs = require('fs');
 
 argv.mbtiles = argv.mbtiles || argv._[0];
 if (!argv.mbtiles) {
@@ -11,6 +12,12 @@ if (!argv.mbtiles) {
 }
 
 argv.basemap = argv.basemap || argv.base || argv.map || 'dark';
+
+try {
+    fs.statSync(argv.mbtiles).isFile();
+} catch(e) {
+    return console.log('*** ' + argv.mbtiles + ' does not exist');
+}
 
 function usage () {
     var text = [];

@@ -21,7 +21,8 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/dark-v8',
     center: [<%= center %>],
     zoom: <%= zoom %>,
-    hash: true
+    hash: true,
+    maxZoom: 30
 });
 map.on('load', function () {
     map.addSource('debug', {

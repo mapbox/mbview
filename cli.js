@@ -17,6 +17,7 @@ function usage () {
     text.push(' --port sets port to use');
     text.push(' --quiet or -q supress all logging except the address to visit');
     text.push(' -n don\'t automatically open the browser on start');
+    text.push(' --basemap sets a different basemap style (default: dark)');
     text.push(' --help prints this message');
     text.push('');
     return text.join('\n');
@@ -31,6 +32,7 @@ var params = {
     sourceId: 'default',
     zoom: 12,
     quiet: argv.q || argv.quiet
+    basemap: argv.basemap || 'dark'
 };
 
 MBView.serve(params, function (err, config) {

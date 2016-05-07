@@ -2,6 +2,7 @@
 
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
+var open = require('open');
 
 if (!argv.mbtiles) {
     console.log(usage());
@@ -32,5 +33,6 @@ var params = {
 };
 
 MBView.serve(params, function (err, config) {
-    console.log('Serving on http://localhost:' + config.port);
+    console.log('Listening on http://localhost:' + config.port);
+    open('http://localhost:' + config.port);
 });

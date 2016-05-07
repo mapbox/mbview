@@ -41,7 +41,7 @@ var params = {
     sourceLayer: argv.sourceLayer || path.basename(argv.mbtiles, '.mbtiles'),
     sourceId: 'default',
     zoom: 12,
-    quiet: argv.q || argv.quiet
+    quiet: argv.q || argv.quiet,
     basemap: argv.basemap
 };
 

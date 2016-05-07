@@ -28,7 +28,7 @@ map.on('load', function () {
         tiles: [
             'http://localhost:<%= port %>/debug/{z}/{x}/{y}.pbf'
         ],
-        maxzoom: <%= zoom %>
+        maxzoom: <%= maxzoom %>
     });
 
     map.addLayer({

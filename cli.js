@@ -9,6 +9,8 @@ if (!argv.mbtiles) {
     process.exit(1);
 }
 
+argv.basemap = argv.basemap || argv.base || argv.map || 'dark';
+
 function usage () {
     var text = [];
     text.push('usage: node cli.js [options]');
@@ -17,7 +19,7 @@ function usage () {
     text.push(' --port sets port to use');
     text.push(' --quiet or -q supress all logging except the address to visit');
     text.push(' -n don\'t automatically open the browser on start');
-    text.push(' --basemap sets a different basemap style (default: dark)');
+    text.push(' --basemap or --base or --map sets the basemap style (default: dark)');
     text.push(' --help prints this message');
     text.push('');
     return text.join('\n');
@@ -32,7 +34,7 @@ var params = {
     sourceId: 'default',
     zoom: 12,
     quiet: argv.q || argv.quiet
-    basemap: argv.basemap || 'dark'
+    basemap: argv.basemap
 };
 
 MBView.serve(params, function (err, config) {

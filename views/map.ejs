@@ -24,6 +24,26 @@ var map = new mapboxgl.Map({
     hash: true,
     maxZoom: 30
 });
+
+var lightColors = [
+    'FC49A3', // pink
+    'CC66FF', // purple-ish
+    '66CCFF', // sky blue
+    '66FFCC', // teal
+    '00FF00', // lime green
+    'FFCC66', // light orange
+    'FF6666', // salmon
+    'FF0000', // red
+    'FF8000', // orange
+    'FFFF66', // yellow
+    '00FFFF' // turquoise
+];
+
+function randomColor(colors) {
+    var randomNumber = parseInt(Math.random() * colors.length + 1);
+    return colors[randomNumber];
+}
+
 map.on('load', function () {
     map.addSource('debug', {
         type: 'vector',
@@ -43,7 +63,7 @@ map.on('load', function () {
             'line-cap': 'round'
         },
         'paint': {
-            'line-color': '#ff69b4',
+            'line-color': '#' + randomColor(lightColors),
             'line-width': 1
         }
     });

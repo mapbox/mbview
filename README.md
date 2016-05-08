@@ -6,7 +6,7 @@ Watch MBTiles in your localhost
 
 ```bash
 % npm install
-% node cli.js --mbtiles ~/foo.mbtiles --port 9000
+% node cli.js --port 9000 ~/roads.mbtiles ~/taco-places.mbtiles
 ```
 
 Global install

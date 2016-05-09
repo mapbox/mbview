@@ -15,3 +15,6 @@ Global install
 % npm install -g mbview
 % mbview
 ```
+
+![dense screenshot](https://cloud.githubusercontent.com/assets/58878/15119814/911a7754-15c7-11e6-9df3-b8546f570939.png)
+_Inspecting multiple dense Vector Tiles_

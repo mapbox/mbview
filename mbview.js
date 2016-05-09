@@ -33,10 +33,9 @@ module.exports = {
 
                 // Support multiple sources
                 config.sources = config.sources || {};
-                var key = data.id || name;
-                config.sources[key] = {};
+                config.sources[name] = {};
                 // TODO: use array to support multiple layers
-                config.sources[key].layers = data.vector_layers[0].id;
+                config.sources[name].layers = data.vector_layers[0].id;
 
                 // d3-queue.defer pattern to return the result of the task
                 callback(null);

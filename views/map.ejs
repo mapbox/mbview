@@ -36,37 +36,41 @@ var lightColors = [
     'FF0000', // red
     'FF8000', // orange
     'FFFF66', // yellow
-    '00FFFF' // turquoise
+    '00FFFF'  // turquoise
 ];
 
 function randomColor(colors) {
-    var randomNumber = parseInt(Math.random() * colors.length + 1);
+    var randomNumber = parseInt(Math.random() * colors.length);
     return colors[randomNumber];
 }
 
 map.on('load', function () {
-    map.addSource('debug', {
-        type: 'vector',
-        tiles: [
-            'http://localhost:<%= port %>/debug/{z}/{x}/{y}.pbf'
-        ],
-        maxzoom: <%= maxzoom %>
-    });
 
-    map.addLayer({
-        'id': '<%= sourceId %>',
-        'type': 'line',
-        'source': 'debug',
-        'source-layer': '<%= sourceLayer %>',
-        'layout': {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        'paint': {
-            'line-color': '#' + randomColor(lightColors),
-            'line-width': 1
-        }
-    });
+    <% Object.keys(sources).forEach(function (sid) { %>
+        map.addSource('<%= sid %>', {
+            type: 'vector',
+            tiles: [
+                'http://localhost:<%= port %>/<%= sid %>/{z}/{x}/{y}.pbf'
+            ],
+            maxzoom: <%= maxzoom %>
+        });
+        map.addLayer({
+            'id': '<%= sources[sid].layers %>',
+            'type': 'line',
+            'source': '<%= sid %>',
+            'source-layer': '<%= sources[sid].layers %>',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#' + randomColor(lightColors),
+                'line-width': 1
+            }
+        });
+
+    <% }); %>
+
 });
 
 </script>

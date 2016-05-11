@@ -3,10 +3,14 @@
 var argv = require('minimist')(process.argv.slice(2));
 var open = require('open');
 var fs = require('fs');
+var utils = require('./utils');
 
 var mbtiles = argv._;
 
-if (!mbtiles.length) {
+if (argv.version || argv.v) {
+    console.log(utils.version());
+    process.exit(0);
+} else if (!mbtiles.length) {
     console.log(usage());
     process.exit(1);
 }
@@ -27,6 +31,7 @@ function usage () {
     text.push(' --quiet or -q supress all logging except the address to visit');
     text.push(' -n don\'t automatically open the browser on start');
     text.push(' --basemap or --base or --map sets the basemap style (default: dark)');
+    text.push(' --version returns module version');
     text.push(' --help prints this message');
     text.push('');
     return text.join('\n');

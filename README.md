@@ -16,6 +16,13 @@ Global install
 % mbview
 ```
 
+Or just try the demo
+
+```bash
+% cd examples
+% ./try.sh
+```
+
 ![awesome 1](https://cloud.githubusercontent.com/assets/58878/15119908/fc49b9b8-15c7-11e6-99b8-8a590df46c37.png)
 
 ![awesome 2](https://cloud.githubusercontent.com/assets/58878/15119925/0a974634-15c8-11e6-852b-a7d411cd407f.png)

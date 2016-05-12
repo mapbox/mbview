@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mapbox/mbview.svg?branch=master)](https://travis-ci.org/mapbox/mbview)
+
 # mbview
 
 Watch MBTiles in your localhost

@@ -1,6 +1,36 @@
 var fs = require('fs');
 
 /**
+ * Extract some metadata from MBTiles
+ * TODO: use array to support multiple layers (as we do with sources)
+ * @return {Object} the metadata we need for the viewer
+ */
+module.exports.metadata = function (data) {
+  var meta = Object.assign({}, data);
+  var res = {
+    maxzoom: meta.maxzoom,
+    zoom: meta.center.pop(),
+    center: meta.center,
+    sources: {}
+  };
+  res.sources[meta.name] = { layers: meta.vector_layers[0].id };
+  return res;
+};
+
+/**
+ * Merge configuration objects
+ * Will not overwrite hash of sources
+ * @param {Object} previous configuration
+ * @param {Object} new configuration
+ * @return {Object} updated config object w sources appended
+ */
+module.exports.mergeConfigurations = function (config, newConfig) {
+  return Object.assign({}, config, newConfig, {
+    sources: Object.assign({}, config.sources, newConfig.sources)
+  });
+};
+
+/**
  * Get usage instructions
  * @return {String} the instructions to run this thing
  */

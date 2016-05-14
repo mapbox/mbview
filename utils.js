@@ -1,4 +1,5 @@
 var fs = require('fs');
+const objectAssign = require('object-assign');
 
 /**
  * Extract some metadata from MBTiles
@@ -6,7 +7,7 @@ var fs = require('fs');
  * @return {Object} the metadata we need for the viewer
  */
 module.exports.metadata = function (data) {
-  var meta = Object.assign({}, data);
+  var meta = objectAssign({}, data);
   var res = {
     maxzoom: meta.maxzoom,
     zoom: meta.center.pop(),
@@ -25,8 +26,8 @@ module.exports.metadata = function (data) {
  * @return {Object} updated config object w sources appended
  */
 module.exports.mergeConfigurations = function (config, newConfig) {
-  return Object.assign({}, config, newConfig, {
-    sources: Object.assign({}, config.sources, newConfig.sources)
+  return objectAssign({}, config, newConfig, {
+    sources: objectAssign({}, config.sources, newConfig.sources)
   });
 };
 

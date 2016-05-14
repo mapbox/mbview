@@ -4,6 +4,7 @@ var MBTiles = require('mbtiles');
 var path = require('path');
 var q = require('d3-queue').queue();
 var utils = require('./utils');
+const objectAssign = require('object-assign');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -25,7 +26,7 @@ module.exports = {
                 // Save reference to tiles
                 tilesets[data.name] = tiles;
                 // Extends the configuration object with new parameters found
-                config = Object.assign({}, config, utils.metadata(data));
+                config = objectAssign({}, config, utils.metadata(data));
                 // d3-queue.defer pattern to return the result of the task
                 callback(null, config);
             });

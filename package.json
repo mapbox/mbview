@@ -25,6 +25,7 @@
     "express": "^4.13.4",
     "mbtiles": "^0.9.0",
     "minimist": "^1.2.0",
+    "object-assign": "^4.1.0",
     "open": "0.0.5"
   }
 }

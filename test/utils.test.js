@@ -1,13 +1,14 @@
 var test = require('tape').test;
 var fs = require('fs');
 var utils = require('../utils');
+const objectAssign = require('object-assign');
 
 const fixtures = {
   metadata: JSON.parse(fs.readFileSync(__dirname + '/fixtures/metadata.json'))
 };
 
 function mockMetadata (name) {
-  return Object.assign({}, fixtures.metadata, {
+  return objectAssign({}, fixtures.metadata, {
     name: name + '.mbtiles',
     vector_layers: [{ id: name }]
   });

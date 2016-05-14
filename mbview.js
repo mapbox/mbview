@@ -3,6 +3,7 @@ var app = express();
 var MBTiles = require('mbtiles');
 var path = require('path');
 var q = require('d3-queue').queue();
+var utils = require('./utils');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -13,38 +14,27 @@ var tilesets = {};
 module.exports = {
 
     loadTiles: function (file, config, callback) {
-        var name = path.basename(file, '.mbtiles');
-
         new MBTiles(file, function(err, tiles) {
             if (err) throw err;
-            tilesets[name] = tiles;
-
             tiles.getInfo(function (err, data) {
                 if (err) throw err;
                 if (!config.quiet) {
                     console.log('*** Metadata found in the MBTiles');
                     console.log(data);
                 }
-
-                // NOTE: final map config is taken from last loaded file
-                config.maxzoom = data.maxzoom;
-                config.zoom = data.center.pop();
-                config.center = data.center;
-
-                // Support multiple sources
-                config.sources = config.sources || {};
-                config.sources[name] = {};
-                // TODO: use array to support multiple layers
-                config.sources[name].layers = data.vector_layers[0].id;
-
+                // Save reference to tiles
+                tilesets[data.name] = tiles;
+                // Extends the configuration object with new parameters found
+                config = Object.assign({}, config, utils.metadata(data));
                 // d3-queue.defer pattern to return the result of the task
-                callback(null);
+                callback(null, config);
             });
         });
     },
 
     /**
      * Defer loading of multiple MBTiles and spin up server.
+     * Will conflate configurations found in the sources.
      * @param {Object} basic configuration, e.g. port
      * @param {Function} a callback with the server configuration loaded
      */
@@ -56,10 +46,15 @@ module.exports = {
             if (!config.quiet) console.log('*** Reading from', file);
             q.defer(loadTiles, file, config);
         });
-        q.await(function (error) {
+        q.awaitAll(function (error, configs) {
             if (error) throw error;
             if (!config.quiet) console.log('*** Config', config);
-            listen(config, callback);
+
+            var finalConfig = configs.reduce(function (prev, curr) {
+              return utils.mergeConfigurations(prev, curr);
+            }, {});
+
+            listen(finalConfig, callback);
         });
     },
 

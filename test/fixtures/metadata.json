@@ -1,0 +1,22 @@
+{
+	"scheme": "tms",
+	"basename": "sf-01.mbtiles",
+	"id": "sf-01",
+	"filesize": 24576,
+	"name": "sf-01.mbtiles",
+	"description": "sf-01.mbtiles",
+	"version": "2",
+	"minzoom": 0,
+	"maxzoom": 14,
+	"center": [-122.4646, 37.744657, 14],
+	"bounds": [-122.491722, 37.716146, -122.392159, 37.795949],
+	"type": "overlay",
+	"format": "pbf",
+	"vector_layers": [{
+		"id": "sf01",
+		"description": "",
+		"minzoom": 0,
+		"maxzoom": 14,
+		"fields": {}
+	}]
+}

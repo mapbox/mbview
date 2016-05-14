@@ -11,7 +11,7 @@ if (argv.version || argv.v) {
     console.log(utils.version());
     process.exit(0);
 } else if (!mbtiles.length) {
-    console.log(usage());
+    console.log(utils.usage());
     process.exit(1);
 }
 
@@ -23,19 +23,6 @@ try {
 
 argv.basemap = argv.basemap || argv.base || argv.map || 'dark';
 
-function usage () {
-    var text = [];
-    text.push('usage: mbview [options] [files]');
-    text.push('');
-    text.push(' --port sets port to use (default: 3000)');
-    text.push(' --quiet or -q supress all logging except the address to visit');
-    text.push(' -n don\'t automatically open the browser on start');
-    text.push(' --basemap or --base or --map sets the basemap style (default: dark)');
-    text.push(' --version returns module version');
-    text.push(' --help prints this message');
-    text.push('');
-    return text.join('\n');
-}
 
 var MBView = require('./mbview');
 

@@ -16,9 +16,25 @@
 <body>
 
 <div id="menu"><span class='icon menu big'></span></div>
-
 <div id='map'></div>
+
 <script>
+var menuBtn = document.querySelector("#menu");
+var menu = document.querySelector(".header-menu");
+
+menuBtn.addEventListener('click', function() {
+    if (menuBtn.className.indexOf('active') > -1) {
+        //Hide Menu
+        menuBtn.className = '';
+        menu.style.display = 'none';
+    } else {
+        //Show Menu
+        menuBtn.className = 'active';
+        menu.style.display = 'block';
+
+    }
+}, false);
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kb3dpIiwiYSI6ImdZdDkyQU0ifQ.bPu86kwHgaenPhYp84g1yg';
 var map = new mapboxgl.Map({
     container: 'map',

@@ -6,15 +6,65 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
+        #menu { position: absolute; top:10px; right:10px; z-index: 1; color: white; cursor: pointer; }
+        #menu-container { position: absolute; display: none; top: 50px; right: 10px; z-index: 1; background-color: white; padding: 20px; }
     </style>
 </head>
 <body>
 
+<div id="menu"><span class='icon menu big'></span></div>
+
+<div id="menu-container">
+    <h4>Filter</h4>
+    <div id="menu-filter" onchange="menuFilter()" class='rounded-toggle short inline'>
+      <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
+      <label for='filter-all'>all</label>
+      <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
+      <label for='filter-lines'>lines</label>
+      <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
+      <label for='filter-pts'>points</label>
+    </div>
+</div>
+
 <div id='map'></div>
+
 <script>
+//Show and hide hamburger menu as needed
+var menuBtn = document.querySelector("#menu");
+var menu = document.querySelector("#menu-container");
+menuBtn.addEventListener('click', function() {
+    if (menuBtn.className.indexOf('active') > -1) {
+        //Hide Menu
+        menuBtn.className = '';
+        menu.style.display = 'none';
+    } else {
+        //Show Menu
+        menuBtn.className = 'active';
+        menu.style.display = 'block';
+
+    }
+}, false);
+
+//Menu-Filter Module
+function menuFilter() {
+    if (document.querySelector("#filter-all").checked) {
+        paint(layers.pts, 'visible');
+        paint(layers.lines, 'visible');
+    } else if (document.querySelector("#filter-pts").checked) {
+        paint(layers.pts, 'visible');
+        paint(layers.lines, 'none');
+    } else if (document.querySelector("#filter-lines").checked) {
+        paint(layers.pts, 'none');
+        paint(layers.lines, 'visible');
+    }
+
+    function paint(layers, val) { layers.forEach(function(layer) { map.setLayoutProperty(layer, 'visibility', val) }); } 
+}
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kb3dpIiwiYSI6ImdZdDkyQU0ifQ.bPu86kwHgaenPhYp84g1yg';
 var map = new mapboxgl.Map({
     container: 'map',
@@ -24,6 +74,11 @@ var map = new mapboxgl.Map({
     hash: true,
     maxZoom: 30
 });
+
+var layers = {
+    pts: [],
+    lines: []
+}
 
 var lightColors = [
     'FC49A3', // pink
@@ -55,7 +110,7 @@ map.on('load', function () {
             maxzoom: <%= maxzoom %>
         });
         map.addLayer({
-            'id': '<%= sources[sid].layers %>',
+            'id': '<%= sources[sid].layers %>-lines',
             'type': 'line',
             'source': '<%= sid %>',
             'source-layer': '<%= sources[sid].layers %>',
@@ -68,6 +123,20 @@ map.on('load', function () {
                 'line-width': 1
             }
         });
+        layers.lines.push('<%= sources[sid].layers %>-lines');
+
+        map.addLayer({
+            'id': '<%= sources[sid].layers %>-pts',
+            'type': 'circle',
+            'source': '<%= sid %>',
+            'source-layer': '<%= sources[sid].layers %>',
+            'filter': ["==", "$type", "Point"],
+            'paint': {
+                'circle-color': '#' + randomColor(lightColors),
+                'circle-radius': 2
+            }
+        });
+        layers.pts.push('<%= sources[sid].layers %>-pts');
 
     <% }); %>
 

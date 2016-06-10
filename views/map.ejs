@@ -11,16 +11,22 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
         #menu { position: absolute; top:10px; right:10px; z-index: 1; color: white; cursor: pointer; }
+        #menu-container { display: none; }
     </style>
 </head>
 <body>
 
 <div id="menu"><span class='icon menu big'></span></div>
+
+<div id="menu-container">
+    <h2>Filter</h2>
+</div>
+
 <div id='map'></div>
 
 <script>
 var menuBtn = document.querySelector("#menu");
-var menu = document.querySelector(".header-menu");
+var menu = document.querySelector("#menu-container");
 
 menuBtn.addEventListener('click', function() {
     if (menuBtn.className.indexOf('active') > -1) {

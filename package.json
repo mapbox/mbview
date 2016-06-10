@@ -7,7 +7,8 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "tape test/*.test.js"
+    "test": "tape test/*.test.js",
+    "start": "node cli.js"
   },
   "keywords": [
     "localhost",

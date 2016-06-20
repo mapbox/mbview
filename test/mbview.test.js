@@ -20,12 +20,14 @@ test('MBView.loadTiles', function (t) {
 });
 
 test('MBView.serve', function (t) {
-  t.plan(4);
+  t.plan(5);
 
-  var tileset = __dirname + '/../examples/baja-highways.mbtiles';
   var params = {
     basemap: 'dark',
-    mbtiles: [tileset],
+    mbtiles: [
+      __dirname + '/../examples/baja-highways.mbtiles',
+      __dirname + '/fixtures/mexico-hospitals.mbtiles'
+    ],
     port: 9000
   };
 
@@ -38,7 +40,9 @@ test('MBView.serve', function (t) {
       .expect('Content-Type', 'text/html; charset=utf-8')
       .end(function (err, res) {
         var match = res.text.match(/bajahighways-lines/)[0];
-        t.true(match, 'loads a map with tileset layers');
+        t.true(match, 'loads a map with lines from first tileset');
+        match = res.text.match(/hospitals-pts/)[0];
+        t.true(match, 'loads a map with points from second tileset');
       });
 
     request('localhost:9000')

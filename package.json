@@ -18,6 +18,7 @@
   "author": "Rodolfo Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
   "license": "MIT",
   "devDependencies": {
+    "supertest": "^1.2.0",
     "tape": "^4.5.1"
   },
   "dependencies": {

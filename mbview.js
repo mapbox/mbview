@@ -79,7 +79,7 @@ module.exports = {
             });
         });
 
-        app.listen(config.port, function () {
+        config.server = app.listen(config.port, function () {
             onListen(null, config);
         });
     }

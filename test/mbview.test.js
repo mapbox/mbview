@@ -50,14 +50,14 @@ test('MBView.serve', function (t) {
     request('localhost:9000')
       .get('/#14/32.5376/-117.0374')
       .expect('Content-Type', 'text/html; charset=utf-8')
-      .end(function (err, res) {
+      .end(function (err) {
         t.error(err, 'responds to Mapbox GL JS panning');
       });
 
     request('localhost:9000')
       .get('/baja-highways.mbtiles/14/2864/6624.pbf')
       .expect('Content-Type', 'application/x-protobuf')
-      .end(function (err, res) {
+      .end(function (err) {
         t.error(err, 'serves protobufs');
       });
   });

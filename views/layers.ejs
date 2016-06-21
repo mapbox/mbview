@@ -1,0 +1,30 @@
+
+map.addLayer({
+  'id': '<%= sources[sid].layers %>-lines',
+  'type': 'line',
+  'source': '<%= sid %>',
+  'source-layer': '<%= sources[sid].layers %>',
+  'layout': {
+    'line-join': 'round',
+    'line-cap': 'round'
+  },
+  'paint': {
+    'line-color': '#' + randomColor(lightColors),
+    'line-width': 1
+  }
+});
+
+map.addLayer({
+  'id': '<%= sources[sid].layers %>-pts',
+  'type': 'circle',
+  'source': '<%= sid %>',
+  'source-layer': '<%= sources[sid].layers %>',
+  'filter': ["==", "$type", "Point"],
+  'paint': {
+    'circle-color': '#' + randomColor(lightColors),
+    'circle-radius': 2
+  }
+});
+
+layers.lines.push('<%= sources[sid].layers %>-lines');
+layers.pts.push('<%= sources[sid].layers %>-pts');

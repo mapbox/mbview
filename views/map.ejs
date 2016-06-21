@@ -55,9 +55,7 @@ function randomColor(colors) {
 }
 
 map.on('load', function () {
-
   <% Object.keys(sources).forEach(function (sid) { %>
-
     map.addSource('<%= sid %>', {
       type: 'vector',
       tiles: [
@@ -66,37 +64,8 @@ map.on('load', function () {
       maxzoom: <%= maxzoom %>
     });
 
-    map.addLayer({
-      'id': '<%= sources[sid].layers %>-lines',
-      'type': 'line',
-      'source': '<%= sid %>',
-      'source-layer': '<%= sources[sid].layers %>',
-      'layout': {
-        'line-join': 'round',
-        'line-cap': 'round'
-      },
-      'paint': {
-        'line-color': '#' + randomColor(lightColors),
-        'line-width': 1
-      }
-    });
-    layers.lines.push('<%= sources[sid].layers %>-lines');
-
-    map.addLayer({
-      'id': '<%= sources[sid].layers %>-pts',
-      'type': 'circle',
-      'source': '<%= sid %>',
-      'source-layer': '<%= sources[sid].layers %>',
-      'filter': ["==", "$type", "Point"],
-      'paint': {
-        'circle-color': '#' + randomColor(lightColors),
-        'circle-radius': 2
-      }
-    });
-    layers.pts.push('<%= sources[sid].layers %>-pts');
-
+    <% include layers %>
   <% }); %>
-
 });
 
 </script>

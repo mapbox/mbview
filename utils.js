@@ -1,5 +1,5 @@
 var fs = require('fs');
-const objectAssign = require('object-assign');
+var objectAssign = require('object-assign');
 
 /**
  * Extract some metadata from MBTiles

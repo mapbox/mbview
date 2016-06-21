@@ -4,7 +4,7 @@ var MBTiles = require('mbtiles');
 var path = require('path');
 var q = require('d3-queue').queue();
 var utils = require('./utils');
-const objectAssign = require('object-assign');
+var objectAssign = require('object-assign');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');

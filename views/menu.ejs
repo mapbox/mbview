@@ -1,6 +1,21 @@
 <style>
-  #menu { position: absolute; top:10px; right:10px; z-index: 1; color: white; cursor: pointer; }
-  #menu-container { position: absolute; display: none; top: 50px; right: 10px; z-index: 1; background-color: white; padding: 20px; }
+    #menu {
+        position: absolute;
+        top:10px;
+        right:10px;
+        z-index: 1;
+        color: white;
+        cursor: pointer;
+    }
+    #menu-container {
+        position: absolute;
+        display: none;
+        top: 50px;
+        right: 10px;
+        z-index: 1;
+        background-color: white;
+        padding: 20px;
+    }
 </style>
 
 <div id="menu"><span class='icon menu big'></span></div>
@@ -8,12 +23,12 @@
 <div id="menu-container">
     <h4>Filter</h4>
     <div id="menu-filter" onchange="menuFilter()" class='rounded-toggle short inline'>
-      <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
-      <label for='filter-all'>all</label>
-      <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
-      <label for='filter-lines'>lines</label>
-      <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
-      <label for='filter-pts'>points</label>
+        <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
+        <label for='filter-all'>all</label>
+        <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
+        <label for='filter-lines'>lines</label>
+        <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
+        <label for='filter-pts'>points</label>
     </div>
 </div>
 
@@ -48,7 +63,11 @@ function menuFilter() {
         paint(layers.lines, 'visible');
     }
 
-    function paint(layers, val) { layers.forEach(function(layer) { map.setLayoutProperty(layer, 'visibility', val) }); }
+    function paint(layers, val) {
+        layers.forEach(function(layer) {
+            map.setLayoutProperty(layer, 'visibility', val)
+        });
+    }
 }
 
 </script>

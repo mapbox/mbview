@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
+
 var express = require('express');
 var app = express();
 var MBTiles = require('mbtiles');
-var path = require('path');
 var q = require('d3-queue').queue();
 var utils = require('./utils');
 var objectAssign = require('object-assign');
@@ -52,7 +53,7 @@ module.exports = {
             if (!config.quiet) console.log('*** Config', config);
 
             var finalConfig = configs.reduce(function (prev, curr) {
-              return utils.mergeConfigurations(prev, curr);
+                return utils.mergeConfigurations(prev, curr);
             }, {});
 
             listen(finalConfig, callback);

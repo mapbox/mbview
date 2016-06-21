@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
+
 var argv = require('minimist')(process.argv.slice(2));
 var open = require('open');
 var fs = require('fs');
@@ -16,7 +18,7 @@ if (argv.version || argv.v) {
 }
 
 try {
-    mbtiles.forEach(function (f) { fs.statSync(f).isFile() });
+    mbtiles.forEach(function (f) { fs.statSync(f).isFile(); });
 } catch(e) {
     return console.error(e);
 }

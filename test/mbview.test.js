@@ -20,7 +20,7 @@ test('MBView.loadTiles', function (t) {
 });
 
 test('MBView.serve', function (t) {
-  t.plan(5);
+  t.plan(6);
 
   var params = {
     basemap: 'dark',
@@ -43,19 +43,21 @@ test('MBView.serve', function (t) {
         t.true(match, 'loads a map with lines from first tileset');
         match = res.text.match(/hospitals-pts/)[0];
         t.true(match, 'loads a map with points from second tileset');
+        match = res.text.match(/menu-container/)[0];
+        t.true(match, 'should have a menu');
       });
 
     request('localhost:9000')
       .get('/#14/32.5376/-117.0374')
       .expect('Content-Type', 'text/html; charset=utf-8')
-      .end(function (err, res) {
+      .end(function (err) {
         t.error(err, 'responds to Mapbox GL JS panning');
       });
 
     request('localhost:9000')
       .get('/baja-highways.mbtiles/14/2864/6624.pbf')
       .expect('Content-Type', 'application/x-protobuf')
-      .end(function (err, res) {
+      .end(function (err) {
         t.error(err, 'serves protobufs');
       });
   });

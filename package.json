@@ -7,6 +7,8 @@
   },
   "main": "server.js",
   "scripts": {
+    "lint": "eslint *.js test/",
+    "pretest": "npm run lint",
     "test": "tape test/*.test.js",
     "start": "node cli.js"
   },
@@ -18,6 +20,7 @@
   "author": "Rodolfo Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^2.13.1",
     "supertest": "^1.2.0",
     "tape": "^4.5.1"
   },

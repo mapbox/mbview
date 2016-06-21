@@ -1,9 +1,9 @@
 var test = require('tape').test;
 var fs = require('fs');
 var utils = require('../utils');
-const objectAssign = require('object-assign');
+var objectAssign = require('object-assign');
 
-const fixtures = {
+var fixtures = {
   metadata: JSON.parse(fs.readFileSync(__dirname + '/fixtures/metadata.json'))
 };
 

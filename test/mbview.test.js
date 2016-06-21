@@ -20,7 +20,7 @@ test('MBView.loadTiles', function (t) {
 });
 
 test('MBView.serve', function (t) {
-  t.plan(5);
+  t.plan(6);
 
   var params = {
     basemap: 'dark',
@@ -43,6 +43,8 @@ test('MBView.serve', function (t) {
         t.true(match, 'loads a map with lines from first tileset');
         match = res.text.match(/hospitals-pts/)[0];
         t.true(match, 'loads a map with points from second tileset');
+        match = res.text.match(/menu-container/)[0];
+        t.true(match, 'should have a menu');
       });
 
     request('localhost:9000')

@@ -1,5 +1,7 @@
 <% sources[sid].layers.forEach(function (layer) { %>
 
+  var layerColor = '#' + randomColor(lightColors);
+
   map.addLayer({
     'id': '<%= layer.id %>-lines',
     'type': 'line',
@@ -10,7 +12,7 @@
       'line-cap': 'round'
     },
     'paint': {
-      'line-color': '#' + randomColor(lightColors),
+      'line-color': layerColor,
       'line-width': 1
     }
   });
@@ -22,7 +24,7 @@
     'source-layer': '<%= layer.id %>',
     'filter': ["==", "$type", "Point"],
     'paint': {
-      'circle-color': '#' + randomColor(lightColors),
+      'circle-color': layerColor,
       'circle-radius': 2
     }
   });

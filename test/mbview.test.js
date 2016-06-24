@@ -15,7 +15,7 @@ test('MBView.loadTiles', function (t) {
     var center = [-117.037354, 32.537551];
     t.deepEqual(config.center, center, 'sets center');
     t.equal(config.maxzoom, 14, 'sets maxzoom');
-    t.equal(source.layers, 'bajahighways', 'tileset has one layer');
+    t.equal(source.layers[0].id, 'bajahighways', 'tileset has one layer');
   });
 });
 

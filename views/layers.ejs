@@ -1,30 +1,33 @@
+<% sources[sid].layers.forEach(function (layer) { %>
 
-map.addLayer({
-  'id': '<%= sources[sid].layers %>-lines',
-  'type': 'line',
-  'source': '<%= sid %>',
-  'source-layer': '<%= sources[sid].layers %>',
-  'layout': {
-    'line-join': 'round',
-    'line-cap': 'round'
-  },
-  'paint': {
-    'line-color': '#' + randomColor(lightColors),
-    'line-width': 1
-  }
-});
+  map.addLayer({
+    'id': '<%= layer.id %>-lines',
+    'type': 'line',
+    'source': '<%= sid %>',
+    'source-layer': '<%= layer.id %>',
+    'layout': {
+      'line-join': 'round',
+      'line-cap': 'round'
+    },
+    'paint': {
+      'line-color': '#' + randomColor(lightColors),
+      'line-width': 1
+    }
+  });
 
-map.addLayer({
-  'id': '<%= sources[sid].layers %>-pts',
-  'type': 'circle',
-  'source': '<%= sid %>',
-  'source-layer': '<%= sources[sid].layers %>',
-  'filter': ["==", "$type", "Point"],
-  'paint': {
-    'circle-color': '#' + randomColor(lightColors),
-    'circle-radius': 2
-  }
-});
+  map.addLayer({
+    'id': '<%= layer.id %>-pts',
+    'type': 'circle',
+    'source': '<%= sid %>',
+    'source-layer': '<%= layer.id %>',
+    'filter': ["==", "$type", "Point"],
+    'paint': {
+      'circle-color': '#' + randomColor(lightColors),
+      'circle-radius': 2
+    }
+  });
 
-layers.lines.push('<%= sources[sid].layers %>-lines');
-layers.pts.push('<%= sources[sid].layers %>-pts');
+  layers.lines.push('<%= layer.id %>-lines');
+  layers.pts.push('<%= layer.id %>-pts');
+
+<% }); %>

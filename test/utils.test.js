@@ -15,9 +15,17 @@ function mockMetadata (name) {
 }
 
 test('metadata', function (t) {
-  var got = utils.metadata(fixtures.metadata);
-  t.equal(got.zoom, 14, 'grabs zoom from tileset center');
-  t.deepEqual(got.sources['sf-01.mbtiles'].layers, 'sf01', 'has a SF layer');
+  var metadata = utils.metadata(fixtures.metadata);
+  var source = metadata.sources['sf-01.mbtiles'];
+  var want = {
+    description: '',
+    fields: {},
+    id: 'sf01',
+    maxzoom: 14,
+    minzoom: 0
+  };
+  t.equal(metadata.zoom, 14, 'grabs zoom from tileset center');
+  t.deepEqual(source.layers[0], want, 'has a SF layer');
   t.end();
 });
 
@@ -30,12 +38,12 @@ test('updateConfig', function (t) {
   got = merg(got, meta(mock('sf03')));
   got = merg(got, meta(mock('sf04')));
   var want = {
-    'sf02.mbtiles': { layers: 'sf02' },
-    'sf03.mbtiles': { layers: 'sf03' },
-    'sf04.mbtiles': { layers: 'sf04' }
+    'sf02.mbtiles': { layers: [ { id: 'sf02' } ] },
+    'sf03.mbtiles': { layers: [ { id: 'sf03' } ] },
+    'sf04.mbtiles': { layers: [ { id: 'sf04' } ] }
   };
 
-  t.deepEqual(got.sources, want, 'gets three friscos');
+  t.deepEqual(got.sources, want, 'gets three sfs');
   t.end();
 });
 

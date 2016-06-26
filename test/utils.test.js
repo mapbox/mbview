@@ -9,6 +9,7 @@ var fixtures = {
 
 function mockMetadata (name) {
   return objectAssign({}, fixtures.metadata, {
+    basename: name + '.mbtiles',
     name: name + '.mbtiles',
     vector_layers: [{ id: name }]
   });

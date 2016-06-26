@@ -14,7 +14,7 @@ module.exports.metadata = function (data) {
     center: meta.center,
     sources: {}
   };
-  res.sources[meta.name] = { layers: meta.vector_layers };
+  res.sources[meta.basename] = { layers: meta.vector_layers };
   return res;
 };
 

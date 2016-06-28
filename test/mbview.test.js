@@ -28,13 +28,14 @@ test('MBView.loadTiles', function (t) {
 });
 
 test('MBView.serve', function (t) {
-  t.plan(7);
+  t.plan(8);
 
   var params = {
     basemap: 'dark',
     mbtiles: [
       __dirname + '/../examples/baja-highways.mbtiles',
-      __dirname + '/fixtures/twolayers.mbtiles'
+      __dirname + '/fixtures/twolayers.mbtiles',
+      __dirname + '/fixtures/038.mbtiles'
     ],
     port: 9000
   };
@@ -68,7 +69,15 @@ test('MBView.serve', function (t) {
       .get('/baja-highways.mbtiles/14/2864/6624.pbf')
       .expect('Content-Type', 'application/x-protobuf')
       .end(function (err) {
-        t.error(err, 'serves protobufs');
+        t.error(err, 'serves protobufs for ' + source);
+      });
+
+    var source = Object.keys(config.sources)[2];
+    request('localhost:9000')
+      .get('/' + source + '/14/2864/6624.pbf')
+      .expect(200)
+      .end(function (err) {
+        t.error(err, 'serves protobufs for ' + source);
       });
   });
 });

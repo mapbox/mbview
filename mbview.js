@@ -25,7 +25,7 @@ module.exports = {
           console.log(data);
         }
         // Save reference to tiles
-        tilesets[data.name] = tiles;
+        tilesets[data.basename] = tiles;
         // Extends the configuration object with new parameters found
         config = objectAssign({}, config, utils.metadata(data));
         // d3-queue.defer pattern to return the result of the task

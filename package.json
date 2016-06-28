@@ -32,5 +32,13 @@
     "minimist": "^1.2.0",
     "object-assign": "^4.1.0",
     "open": "0.0.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mapbox/mbview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mapbox/mbview/issues"
+  },
+  "homepage": "https://github.com/mapbox/mbview#readme"
 }

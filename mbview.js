@@ -18,16 +18,16 @@ module.exports = {
   loadTiles: function (file, config, callback) {
     new MBTiles(file, function(err, tiles) {
       if (err) throw err;
-      tiles.getInfo(function (err, data) {
+      tiles.getInfo(function (err, info) {
         if (err) throw err;
         if (!config.quiet) {
           console.log('*** Metadata found in the MBTiles');
-          console.log(data);
+          console.log(info);
         }
         // Save reference to tiles
-        tilesets[data.basename] = tiles;
+        tilesets[info.basename] = tiles;
         // Extends the configuration object with new parameters found
-        config = objectAssign({}, config, utils.metadata(data));
+        config = objectAssign({}, config, utils.metadata(info));
         // d3-queue.defer pattern to return the result of the task
         callback(null, config);
       });

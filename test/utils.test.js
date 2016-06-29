@@ -10,34 +10,32 @@ var fixtures = {
 function mockMetadata (name) {
   return objectAssign({}, fixtures.metadata, {
     basename: name + '.mbtiles',
+    center: [32, -120, 14],
     name: name + '.mbtiles',
     vector_layers: [{ id: name }]
   });
 }
 
-test('metadata', function (t) {
-  var metadata = utils.metadata(fixtures.metadata);
-  var source = metadata.sources['baja-highways.mbtiles'];
-  t.equal(metadata.zoom, 14, 'grabs zoom from tileset center');
-  t.equal(source.layers[0].id, 'bajahighways', 'has a layer');
-  t.end();
-});
-
-test('updateConfig', function (t) {
-  var meta = utils.metadata;
-  var mock = mockMetadata;
-  var merg = utils.mergeConfigurations;
-
-  var got = meta(mock('sf02'));
-  got = merg(got, meta(mock('sf03')));
-  got = merg(got, meta(mock('sf04')));
-  var want = {
-    'sf02.mbtiles': { layers: [ { id: 'sf02' } ] },
-    'sf03.mbtiles': { layers: [ { id: 'sf03' } ] },
-    'sf04.mbtiles': { layers: [ { id: 'sf04' } ] }
+test('mergeConfigurations', function (t) {
+  var config = {
+    port: 3000
   };
 
-  t.deepEqual(got.sources, want, 'gets three sfs');
+  var tilesets = [
+    mockMetadata('sf02'),
+    mockMetadata('sf03'),
+    mockMetadata('sf04')
+  ];
+
+  var got = utils.mergeConfigurations(config, tilesets);
+  var want = ['sf02.mbtiles', 'sf03.mbtiles', 'sf04.mbtiles'];
+
+  t.equal(got.port, 3000, 'retains original configuration');
+  t.equal(got.zoom, 14, 'got zoom level from first tileset');
+  t.equal(got.center[0], 32, 'sets center from first tileset');
+  t.deepEqual(Object.keys(got.sources), want, 'gets three sfs');
+  t.equal(got.sources['sf03.mbtiles'].maxzoom, 14, 'metadata per source');
+
   t.end();
 });
 

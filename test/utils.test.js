@@ -17,16 +17,9 @@ function mockMetadata (name) {
 
 test('metadata', function (t) {
   var metadata = utils.metadata(fixtures.metadata);
-  var source = metadata.sources['sf-01.mbtiles'];
-  var want = {
-    description: '',
-    fields: {},
-    id: 'sf01',
-    maxzoom: 14,
-    minzoom: 0
-  };
+  var source = metadata.sources['baja-highways.mbtiles'];
   t.equal(metadata.zoom, 14, 'grabs zoom from tileset center');
-  t.deepEqual(source.layers[0], want, 'has a SF layer');
+  t.equal(source.layers[0].id, 'bajahighways', 'has a layer');
   t.end();
 });
 

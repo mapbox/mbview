@@ -62,7 +62,7 @@ map.on('load', function () {
       tiles: [
         'http://localhost:<%= port %>/<%= sid %>/{z}/{x}/{y}.pbf'
       ],
-      maxzoom: <%= maxzoom %>
+      maxzoom: <%= sources[sid].maxzoom %>
     });
 
     <% include layers %>

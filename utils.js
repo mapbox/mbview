@@ -2,32 +2,22 @@ var fs = require('fs');
 var objectAssign = require('object-assign');
 
 /**
- * Extract some metadata from MBTiles
- * TODO: use array to support multiple layers (as we do with sources)
- * @return {Object} the metadata we need for the viewer
+ * Merge a configuration with tileset objects and
+ * set 'smart' defaults based on these sources, e.g. center, zoom
+ * @param {object} config passed to the mbview server
+ * @param {array} tilesets of objects extracted from the mbtiles
+ * @return {object} updated config object with sources appended
  */
-module.exports.metadata = function (data) {
-  var meta = objectAssign({}, data);
-  var res = {
-    maxzoom: meta.maxzoom,
-    zoom: meta.center.pop(),
-    center: meta.center,
-    sources: {}
-  };
-  res.sources[meta.basename] = { layers: meta.vector_layers };
-  return res;
-};
-
-/**
- * Merge configuration objects
- * Will not overwrite hash of sources
- * @param {Object} previous configuration
- * @param {Object} new configuration
- * @return {Object} updated config object w sources appended
- */
-module.exports.mergeConfigurations = function (config, newConfig) {
-  return objectAssign({}, config, newConfig, {
-    sources: objectAssign({}, config.sources, newConfig.sources)
+module.exports.mergeConfigurations = function (config, tilesets) {
+  var tilehash = tilesets.reduce(function (prev, curr) {
+    var c = {};
+    c[curr.basename] = curr;
+    return objectAssign({}, prev, c);
+  }, {});
+  var smart = objectAssign({}, config, tilesets[0]);
+  smart.zoom = smart.zoom || smart.center.pop();
+  return objectAssign({}, smart, {
+    sources: tilehash
   });
 };
 

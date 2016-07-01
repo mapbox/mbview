@@ -11,34 +11,33 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-var tilesets = {};
-
 module.exports = {
 
-  loadTiles: function (file, config, callback) {
+  /**
+   * Load a tileset and return a reference with metadata
+   * @param {object} file reference to the tileset
+   * @param {function} callback that returns the resulting tileset object
+   */
+  loadTiles: function (file, callback) {
     new MBTiles(file, function(err, tiles) {
       if (err) throw err;
-      tiles.getInfo(function (err, data) {
+      tiles.getInfo(function (err, info) {
         if (err) throw err;
-        if (!config.quiet) {
-          console.log('*** Metadata found in the MBTiles');
-          console.log(data);
-        }
-        // Save reference to tiles
-        tilesets[data.basename] = tiles;
-        // Extends the configuration object with new parameters found
-        config = objectAssign({}, config, utils.metadata(data));
-        // d3-queue.defer pattern to return the result of the task
-        callback(null, config);
+
+        var tileset = objectAssign({}, info, {
+          tiles: tiles
+        });
+
+        callback(null, tileset);
       });
     });
   },
 
   /**
   * Defer loading of multiple MBTiles and spin up server.
-  * Will conflate configurations found in the sources.
-  * @param {Object} basic configuration, e.g. port
-  * @param {Function} a callback with the server configuration loaded
+  * Will merge all the configurations found in the sources.
+  * @param {object} config for the server, e.g. port
+  * @param {function} callback with the server configuration loaded
   */
   serve: function (config, callback) {
     var loadTiles = this.loadTiles;
@@ -46,16 +45,18 @@ module.exports = {
 
     config.mbtiles.forEach(function (file) {
       if (!config.quiet) console.log('*** Reading from', file);
-      q.defer(loadTiles, file, config);
+      q.defer(loadTiles, file);
     });
-    q.awaitAll(function (error, configs) {
+
+    q.awaitAll(function (error, tilesets) {
       if (error) throw error;
-      if (!config.quiet) console.log('*** Config', config);
+      if (!config.quiet) {
+        console.log('*** Config', config);
+        console.log('*** Metadata found in the MBTiles');
+        console.log(tilesets);
+      }
 
-      var finalConfig = configs.reduce(function (prev, curr) {
-        return utils.mergeConfigurations(prev, curr);
-      }, {});
-
+      var finalConfig = utils.mergeConfigurations(config, tilesets);
       listen(finalConfig, callback);
     });
   },
@@ -69,7 +70,8 @@ module.exports = {
       var p = req.params;
       if (!config.quiet) console.log('Serving', p.z + '/' + p.x + '/' + p.y);
 
-      tilesets[p.source].getTile(p.z, p.x, p.y, function (err, tile, headers) {
+      var tiles = config.sources[p.source].tiles;
+      tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
         if (err) {
           res.end();
         } else {

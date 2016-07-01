@@ -7,23 +7,22 @@ var server = null;
 test('MBView.loadTiles', function (t) {
   t.plan(6);
 
-  var config = {};
-  var tileset = __dirname + '/../examples/baja-highways.mbtiles';
+  var mb = __dirname + '/../examples/baja-highways.mbtiles';
 
-  MBView.loadTiles(tileset, config, function (err, config) {
-    var source = config.sources['baja-highways.mbtiles'];
-    var center = [-117.037354, 32.537551];
-    t.deepEqual(config.center, center, 'sets center');
-    t.equal(config.maxzoom, 14, 'sets maxzoom');
-    t.equal(source.layers[0].id, 'bajahighways', 'tileset has one layer');
+  MBView.loadTiles(mb, function (err, tileset) {
+    var center = [-117.037354, 32.537551, 14];
+    var layers = tileset.vector_layers;
+    t.deepEqual(tileset.center, center, 'sets center');
+    t.equal(tileset.maxzoom, 14, 'sets maxzoom');
+    t.equal(layers[0].id, 'bajahighways', 'tileset has one layer');
   });
 
-  tileset = __dirname + '/fixtures/twolayers.mbtiles';
-  MBView.loadTiles(tileset, config, function (err, config) {
-    var source = config.sources['twolayers.mbtiles'];
-    t.true(source, 'loads tileset');
-    t.equal(source.layers[0].id, 'hospitales', 'loads first layer');
-    t.equal(source.layers[1].id, 'playas', 'loads second layer');
+  mb = __dirname + '/fixtures/twolayers.mbtiles';
+  MBView.loadTiles(mb, function (err, tileset) {
+    var layers = tileset.vector_layers;
+    t.true(tileset, 'loads tileset');
+    t.equal(layers[0].id, 'hospitales', 'loads first layer');
+    t.equal(layers[1].id, 'playas', 'loads second layer');
   });
 });
 

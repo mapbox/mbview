@@ -44,17 +44,16 @@ module.exports = {
     var listen = this.listen;
 
     config.mbtiles.forEach(function (file) {
-      if (!config.quiet) console.log('*** Reading from', file);
       q.defer(loadTiles, file);
     });
 
     q.awaitAll(function (error, tilesets) {
       if (error) throw error;
-      if (!config.quiet) {
-        console.log('*** Config', config);
-        console.log('*** Metadata found in the MBTiles');
-        console.log(tilesets);
-      }
+      // if (!config.quiet) {
+      //   console.log('*** Config', config);
+      //   console.log('*** Metadata found in the MBTiles');
+      //   console.log(tilesets);
+      // }
 
       var finalConfig = utils.mergeConfigurations(config, tilesets);
       listen(finalConfig, callback);
@@ -72,10 +71,8 @@ module.exports = {
       var tiles = config.sources[p.source].tiles;
       tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
         if (err) {
-          console.log(err);
           res.end();
         } else {
-          if (!config.quiet) console.log(headers);
           res.writeHead(200, headers);
           res.end(tile);
         }

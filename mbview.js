@@ -68,11 +68,11 @@ module.exports = {
 
     app.get('/:source/:z/:x/:y.pbf', function (req, res) {
       var p = req.params;
-      if (!config.quiet) console.log('Serving', p.z + '/' + p.x + '/' + p.y);
 
       var tiles = config.sources[p.source].tiles;
       tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
         if (err) {
+          console.log(err);
           res.end();
         } else {
           if (!config.quiet) console.log(headers);

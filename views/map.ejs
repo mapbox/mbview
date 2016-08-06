@@ -70,6 +70,24 @@ map.on('load', function () {
   <% }); %>
 });
 
+map.on('click', function (e) {
+  var features = map.queryRenderedFeatures(e.point, {layers: layers.pts.concat(layers.lines) });
+  if (!features.length) {
+    console.log('no features');
+    return;
+  }
+
+  var msg = '';
+  features.forEach(function(f){
+    msg+=JSON.stringify(f.properties, null, 4) + '<br>';
+  });
+
+  var popup = new mapboxgl.Popup()
+    .setLngLat(map.unproject(e.point))
+    .setHTML(msg)
+    .addTo(map);
+});
+
 </script>
 
 </body>

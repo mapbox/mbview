@@ -8,6 +8,9 @@ var fs = require('fs');
 var utils = require('./utils');
 
 var mbtiles = argv._;
+var accessToken = argv.MapboxAccessToken ||
+  process.env.MAPBOX_ACCESS_TOKEN ||
+  process.env.MapboxAccessToken;
 
 if (argv.version || argv.v) {
   console.log(utils.version());
@@ -34,7 +37,8 @@ var params = {
   port: argv.port || 3000,
   zoom: 12,
   quiet: argv.q || argv.quiet,
-  basemap: argv.basemap
+  basemap: argv.basemap,
+  accessToken: accessToken
 };
 
 MBView.serve(params, function (err, config) {

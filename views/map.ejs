@@ -10,6 +10,39 @@
   <style>
     body { margin:0; padding:0; }
     #map { position:absolute; top:0; bottom:0; width:100%; }
+    .mbview_popup {
+      color: #333;
+      display: table;
+      font-family: "Open Sans", sans-serif;
+      font-size: 10px;
+    }
+
+    .mbview_feature:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .mbview_layer:before {
+      content: '#';
+    }
+
+    .mbview_layer {
+      display: block;
+      font-weight: bold;
+    }
+
+    .mbview_property {
+      display: table-row;
+    }
+
+    .mbview_property-value {
+      display: table-cell;
+
+    }
+
+    .mbview_property-name {
+      display: table-cell;
+      padding-right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -70,6 +103,78 @@ map.on('load', function () {
   <% }); %>
 });
 
+
+function displayValue(value) {
+  if (typeof value === 'undefined' || value === null) return value;
+  if (typeof value === 'object' ||
+      typeof value === 'number' ||
+      typeof value === 'string') return value.toString();
+  return value;
+}
+
+function renderProperty(propertyName, property) {
+  return '<div class="mbview_property">' +
+    '<div class="mbview_property-name">' + propertyName + '</div>' +
+    '<div class="mbview_property-value">' + displayValue(property) + '</div>' +
+    '</div>';
+}
+
+function renderLayer(layerId) {
+  return '<div class="mbview_layer">' + layerId + '</div>';
+}
+
+function renderProperties(feature) {
+  var sourceProperty = renderLayer(feature.layer['source-layer'] || feature.layer.source);
+  var typeProperty = renderProperty('$type', feature.geometry.type);
+  var properties = Object.keys(feature.properties).map(function (propertyName) {
+    return renderProperty(propertyName, feature.properties[propertyName]);
+  });
+  return [sourceProperty, typeProperty].concat(properties).join('');
+}
+
+function renderFeatures(features) {
+  return features.map(function (ft) {
+    return '<div class="mbview_feature">' + renderProperties(ft) + '</div>';
+  }).join('');
+}
+
+function renderPopup(features) {
+  return '<div class="mbview_popup">' + renderFeatures(features) + '</div>';
+}
+
+var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+});
+
+console.log('layers', layers);
+map.on('mousemove', function (e) {
+  // set a bbox around the pointer
+  var selectThreshold = 5;
+  var queryBox = [
+    [
+      e.point.x - selectThreshold,
+      e.point.y + selectThreshold
+    ], // bottom left (SW)
+    [
+      e.point.x + selectThreshold,
+      e.point.y - selectThreshold
+    ] // top right (NE)
+  ];
+
+  var features = map.queryRenderedFeatures(queryBox, {
+    layers: layers.lines.concat(layers.pts)
+  }) || [];
+  map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+  if (!features.length) {
+    popup.remove();
+  } else {
+    popup.setLngLat(e.lngLat)
+      .setHTML(renderPopup(features))
+      .addTo(map);
+  }
+});
 </script>
 
 </body>

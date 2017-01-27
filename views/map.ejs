@@ -147,6 +147,8 @@ var popup = new mapboxgl.Popup({
   closeOnClick: false
 });
 
+var wantPopup = true;
+
 console.log('layers', layers);
 map.on('mousemove', function (e) {
   // set a bbox around the pointer
@@ -167,7 +169,7 @@ map.on('mousemove', function (e) {
   }) || [];
   map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-  if (!features.length) {
+  if (!features.length || !wantPopup) {
     popup.remove();
   } else {
     popup.setLngLat(e.lngLat)

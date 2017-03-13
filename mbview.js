@@ -49,23 +49,23 @@ module.exports = {
 
     q.awaitAll(function (error, tilesets) {
       if (error) throw error;
-      // if (!config.quiet) {
-      //   console.log('*** Config', config);
-      //   console.log('*** Metadata found in the MBTiles');
-      //   console.log(tilesets);
-      // }
-
       var finalConfig = utils.mergeConfigurations(config, tilesets);
       listen(finalConfig, callback);
     });
   },
 
   listen: function (config, onListen) {
+    var format = config.tiles._info.format;
+
     app.get('/', function (req, res) {
-      res.render('map', config);
+      if (format === 'pbf') {
+        res.render('vector', config);
+      } else {
+        res.render('raster', config);
+      }
     });
 
-    app.get('/:source/:z/:x/:y.pbf', function (req, res) {
+    app.get('/:source/:z/:x/:y.' + format, function (req, res) {
       var p = req.params;
 
       var tiles = config.sources[p.source].tiles;

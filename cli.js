@@ -2,7 +2,9 @@
 
 /* eslint-disable no-console */
 
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2), {
+  boolean: ['n', 'quiet', 'q']
+});
 var open = require('open');
 var fs = require('fs');
 var utils = require('./utils');

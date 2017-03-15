@@ -35,6 +35,7 @@ module.exports.usage = function () {
   u.push(' --basemap, --base or --map sets the basemap style (default: dark)');
   u.push(' --version returns module version');
   u.push(' --help prints this message');
+  u.push(' --url set map.ejs map tiles url (default: localhost)');
   u.push('');
   return u.join('\n');
 };

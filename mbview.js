@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 var express = require('express');
+var cors   = require('cors');
 var app = express();
 var MBTiles = require('mbtiles');
 var q = require('d3-queue').queue();

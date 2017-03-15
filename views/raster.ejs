@@ -31,7 +31,6 @@
   var map = L.mapbox.map('map').setView([center[1], center[0]], center[2]);
   var tilelayer = L.tileLayer('http://localhost:<%= port %>/' + source + '/{z}/{x}/{y}.<%= format %>').addTo(map);
   var hash = L.hash(map);
-  console.log('http://localhost:<%= port %>/' + source + '/{z}/{x}/{y}.<%= format %>')
 </script>
 </body>
 </html>

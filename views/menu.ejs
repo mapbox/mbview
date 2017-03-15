@@ -25,6 +25,8 @@
   <div id="menu-filter" onchange="menuFilter()" class='rounded-toggle short inline'>
     <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
     <label for='filter-all'>all</label>
+    <input id='filter-polygons' type='radio' name='rtoggle' value='polygons'>
+    <label for='filter-polygons'>polygons</label>
     <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
     <label for='filter-lines'>lines</label>
     <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
@@ -61,12 +63,19 @@ function menuFilter() {
   if (document.querySelector("#filter-all").checked) {
     paint(layers.pts, 'visible');
     paint(layers.lines, 'visible');
+    paint(layers.polygons, 'visible');
   } else if (document.querySelector("#filter-pts").checked) {
     paint(layers.pts, 'visible');
     paint(layers.lines, 'none');
+    paint(layers.polygons, 'none');
   } else if (document.querySelector("#filter-lines").checked) {
     paint(layers.pts, 'none');
     paint(layers.lines, 'visible');
+    paint(layers.polygons, 'none');
+  } else if (document.querySelector("#filter-polygons").checked) {
+    paint(layers.pts, 'none');
+    paint(layers.lines, 'none');
+    paint(layers.polygons, 'visible');
   }
 
   function paint(layers, val) {

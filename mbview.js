@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 
 var express = require('express');
+var cors   = require('cors');
 var app = express();
 var MBTiles = require('mbtiles');
 var q = require('d3-queue').queue();
 var utils = require('./utils');
 var objectAssign = require('object-assign');
-
+app.use(cors());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));

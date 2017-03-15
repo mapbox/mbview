@@ -40,10 +40,11 @@ var params = {
   zoom: 12,
   quiet: argv.q || argv.quiet,
   basemap: argv.basemap,
-  accessToken: accessToken
+  accessToken: accessToken,
+  url: argv.url || "localhost"
 };
 
 MBView.serve(params, function (err, config) {
-  console.log('Listening on http://localhost:' + config.port);
-  if (!argv.n) open('http://localhost:' + config.port);
+  console.log('Listening on http://'+config.url+':' + config.port);
+  if (!argv.n) open('http://'+config.url+':' + config.port);
 });

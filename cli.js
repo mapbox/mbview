@@ -39,7 +39,7 @@ var params = {
   quiet: argv.q || argv.quiet,
   basemap: argv.basemap,
   accessToken: accessToken,
-  url: argv.url || "localhost"
+  url: argv.url || 'localhost'
 };
 
 MBView.serve(params, function (err, config) {

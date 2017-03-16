@@ -153,7 +153,7 @@ var wantPopup = false;
 console.log('layers', layers);
 map.on('mousemove', function (e) {
   // set a bbox around the pointer
-  var selectThreshold = 5;
+  var selectThreshold = 3;
   var queryBox = [
     [
       e.point.x - selectThreshold,
@@ -166,7 +166,7 @@ map.on('mousemove', function (e) {
   ];
 
   var features = map.queryRenderedFeatures(queryBox, {
-    layers: layers.lines.concat(layers.pts)
+    layers: layers.polygons.concat(layers.lines.concat(layers.pts))
   }) || [];
   map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 

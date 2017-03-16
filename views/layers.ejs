@@ -4,6 +4,19 @@
 
   map.addLayer({
     'id': '<%= layer.id %>-polygons',
+    'type': 'fill',
+    'source': '<%= sid %>',
+    'source-layer': '<%= layer.id %>',
+    'filter': ["==", "$type", "Polygon"],
+    'layout': {},
+    'paint': {
+      'fill-opacity': 0.25,
+      'fill-color': layerColor
+    }
+  });
+
+  map.addLayer({
+    'id': '<%= layer.id %>-polygons-outline',
     'type': 'line',
     'source': '<%= sid %>',
     'source-layer': '<%= layer.id %>',
@@ -14,7 +27,8 @@
     },
     'paint': {
       'line-color': layerColor,
-      'line-width': 1
+      'line-width': 1,
+      'line-opacity': 0.75
     }
   });
 
@@ -30,7 +44,8 @@
     },
     'paint': {
       'line-color': layerColor,
-      'line-width': 1
+      'line-width': 1,
+      'line-opacity': 0.75
     }
   });
 
@@ -42,11 +57,13 @@
     'filter': ["==", "$type", "Point"],
     'paint': {
       'circle-color': layerColor,
-      'circle-radius': 2
+      'circle-radius': 2.5,
+      'circle-opacity': 0.75
     }
   });
 
   layers.polygons.push('<%= layer.id %>-polygons');
+  layers.polygons.push('<%= layer.id %>-polygons-outline');
   layers.lines.push('<%= layer.id %>-lines');
   layers.pts.push('<%= layer.id %>-pts');
 

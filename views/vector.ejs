@@ -4,8 +4,8 @@
   <meta charset='utf-8' />
   <title>mbview - vector</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
   <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
   <style>
     body { margin:0; padding:0; }
@@ -53,11 +53,14 @@
 
 <script>
 
+var center = [<%= center %>];
+center = [center[0], center[1]];
+
 mapboxgl.accessToken = '<%= accessToken %>';
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/<%= basemap %>-v9',
-  center: [<%= center %>],
+  center: center,
   zoom: <%= zoom %>,
   hash: true,
   maxZoom: 30

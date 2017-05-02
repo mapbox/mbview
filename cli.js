@@ -20,6 +20,9 @@ if (argv.version || argv.v) {
 } else if (!mbtiles.length) {
   console.log(utils.usage());
   process.exit(1);
+} else if (!accessToken) {
+  console.log('missing access token, try `export MAPBOX_ACCESS_TOKEN=...`');
+  process.exit(1);
 }
 
 try {

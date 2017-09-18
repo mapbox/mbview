@@ -17,6 +17,7 @@ module.exports.mergeConfigurations = function (config, tilesets) {
   var smart = objectAssign({}, config, tilesets[0]);
   var centerZoom = smart.center.pop();
   smart.zoom = smart.zoom || centerZoom;
+  smart.center.push(smart.zoom);
   return objectAssign({}, smart, {
     sources: tilehash
   });

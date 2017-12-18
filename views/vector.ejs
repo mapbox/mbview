@@ -127,7 +127,7 @@ function renderLayer(layerId) {
   return '<div class="mbview_layer">' + layerId + '</div>';
 }
 
-function renderProperties(feature) {console.log(feature)
+function renderProperties(feature) {
   var sourceProperty = renderLayer(feature.layer['source-layer'] || feature.layer.source);
   var idProperty = renderProperty('$id', feature.id);
   var typeProperty = renderProperty('$type', feature.geometry.type);

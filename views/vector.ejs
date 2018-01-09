@@ -129,11 +129,13 @@ function renderLayer(layerId) {
 
 function renderProperties(feature) {
   var sourceProperty = renderLayer(feature.layer['source-layer'] || feature.layer.source);
+  var idProperty = renderProperty('$id', feature.id);
   var typeProperty = renderProperty('$type', feature.geometry.type);
   var properties = Object.keys(feature.properties).map(function (propertyName) {
     return renderProperty(propertyName, feature.properties[propertyName]);
   });
-  return [sourceProperty, typeProperty].concat(properties).join('');
+  return (feature.id ? [sourceProperty, idProperty, typeProperty]
+    : [sourceProperty, typeProperty]).concat(properties).join('');
 }
 
 function renderFeatures(features) {
@@ -153,7 +155,6 @@ var popup = new mapboxgl.Popup({
 
 var wantPopup = false;
 
-console.log('layers', layers);
 map.on('mousemove', function (e) {
   // set a bbox around the pointer
   var selectThreshold = 3;

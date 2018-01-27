@@ -2,7 +2,7 @@
 
 var express = require('express');
 var app = express();
-var MBTiles = require('mbtiles');
+var MBTiles = require('@mapbox/mbtiles');
 var q = require('d3-queue').queue();
 var utils = require('./utils');
 var objectAssign = require('object-assign');

@@ -28,7 +28,7 @@
   var center = [<%= center %>];
 
   L.mapbox.accessToken = '<%= accessToken %>';
-  var map = L.mapbox.map('map').setView([center[1], center[0]], center[2]);
+  var map = L.mapbox.map('map').setView([center[1], center[0]], <%= zoom %>);
   var baselayer = L.tileLayer('http://b.tiles.mapbox.com/v4/mapbox.<%= basemap %>/{z}/{x}/{y}.png?access_token=<%= accessToken %>').addTo(map);
   var tilelayer = L.tileLayer('http://localhost:<%= port %>/' + source + '/{z}/{x}/{y}.<%= format %>', { maxNativeZoom: <%= maxzoom %> }).addTo(map);
   var hash = L.hash(map);

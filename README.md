@@ -8,9 +8,10 @@ Watch MBTiles in your localhost
 
 ```bash
 % npm install
-% export MAPBOX_ACCESS_TOKEN='pk.0000.1111' # a mapbox public token
+% export MAPBOX_ACCESS_TOKEN='pk.0000.1111' # replace value with your mapbox public access token
 % node cli.js --port 9000 ~/roads.mbtiles ~/taco-places.mbtiles
 ```
+You can obtain a mapbox public token by signing up [here](https://www.mapbox.com/signup/).
 
 Global install
 

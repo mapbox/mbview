@@ -73,6 +73,7 @@ module.exports = {
         if (err) {
           res.end();
         } else {
+          headers['Access-Control-Allow-Origin'] = '*';
           res.writeHead(200, headers);
           res.end(tile);
         }

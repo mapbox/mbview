@@ -37,6 +37,7 @@ test('MBView.serve', function (t) {
       __dirname + '/fixtures/038.mbtiles'
     ],
     port: 9000,
+    host: '0.0.0.0',
     accessToken: 'pk.foo.bar'
   };
 

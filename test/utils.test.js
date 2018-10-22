@@ -18,7 +18,8 @@ function mockMetadata (name) {
 
 test('mergeConfigurations', function (t) {
   var config = {
-    port: 3000
+    port: 3000,
+    host: 'localhost'
   };
 
   var tilesets = [

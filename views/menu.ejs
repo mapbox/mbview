@@ -32,6 +32,10 @@
     <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
     <label for='filter-pts'>points</label>
   </div>
+  <div id="menu-vertices" onchange="menuFilter()" class='rounded-toggle short inline'>
+    <input id='show-vertices' type='checkbox' name='ptoggle' value='all''>
+    <label for='show-vertices'>show vertices</label>
+  </div>
   <h4>Popup</h4>
   <div id="menu-popup" onchange="menuPopup()" class='rounded-toggle short inline'>
     <input id='show-popup' type='checkbox' name='ptoggle' value='all''>
@@ -64,18 +68,43 @@ function menuFilter() {
     paint(layers.pts, 'visible');
     paint(layers.lines, 'visible');
     paint(layers.polygons, 'visible');
+
+    if (document.querySelector("#show-vertices").checked) {
+      paint(layers.linesVertices, 'visible');
+      paint(layers.polygonsVertices, 'visible');
+    } else {
+      paint(layers.linesVertices, 'none');
+      paint(layers.polygonsVertices, 'none');
+    }
   } else if (document.querySelector("#filter-pts").checked) {
     paint(layers.pts, 'visible');
     paint(layers.lines, 'none');
     paint(layers.polygons, 'none');
+    paint(layers.linesVertices, 'none');
+    paint(layers.polygonsVertices, 'none');
   } else if (document.querySelector("#filter-lines").checked) {
     paint(layers.pts, 'none');
     paint(layers.lines, 'visible');
     paint(layers.polygons, 'none');
+
+    if (document.querySelector("#show-vertices").checked) {
+      paint(layers.linesVertices, 'visible');
+      paint(layers.polygonsVertices, 'none');
+    } else {
+      paint(layers.linesVertices, 'none');
+      paint(layers.polygonsVertices, 'none');
+    }
   } else if (document.querySelector("#filter-polygons").checked) {
     paint(layers.pts, 'none');
     paint(layers.lines, 'none');
     paint(layers.polygons, 'visible');
+    if (document.querySelector("#show-vertices").checked) {
+      paint(layers.linesVertices, 'none');
+      paint(layers.polygonsVertices, 'visible');
+    } else {
+      paint(layers.linesVertices, 'none');
+      paint(layers.polygonsVertices, 'none');
+    }
   }
 
   function paint(layers, val) {

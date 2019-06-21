@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/mapbox/mbview/issues"
   },
-  "homepage": "https://github.com/mapbox/mbview#readme"
+  "homepage": "https://github.com/mapbox/mbview#readme",
+  "engines": {
+    "node": ">=8.10"
+  }
 }

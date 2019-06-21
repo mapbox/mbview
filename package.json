@@ -23,17 +23,17 @@
     "@mapbox/eslint-config-mapbox": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-node": "^9.1.0",
-    "supertest": "^1.2.0",
+    "supertest": "^4.0.2",
     "tape": "^4.5.1"
   },
   "dependencies": {
     "@mapbox/mbtiles": "^0.10.0",
     "d3-queue": "^2.0.3",
     "ejs": "^2.4.1",
-    "express": "^4.13.4",
+    "express": "^4.17.1",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.0",
-    "open": "0.0.5"
+    "open": "^6.3.0"
   },
   "repository": {
     "type": "git",

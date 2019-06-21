@@ -20,7 +20,9 @@
   "author": "Rodolfo Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^2.13.1",
+    "@mapbox/eslint-config-mapbox": "^2.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-node": "^9.1.0",
     "supertest": "^1.2.0",
     "tape": "^4.5.1"
   },

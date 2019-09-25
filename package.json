@@ -1,6 +1,6 @@
 {
   "name": "@mapbox/mbview",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Watch mbtiles in your localhost",
   "bin": {
     "mbview": "./cli.js"

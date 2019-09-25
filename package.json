@@ -20,20 +20,20 @@
   "author": "Rodolfo Wilhelmy <rwilhelmy@gmail.com> (http://wilhel.me)",
   "license": "MIT",
   "devDependencies": {
-    "@mapbox/eslint-config-mapbox": "^2.0.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-node": "^9.1.0",
+    "@mapbox/eslint-config-mapbox": "^2.0.1",
+    "eslint": "^6.4.0",
+    "eslint-plugin-node": "^10.0.0",
     "supertest": "^4.0.2",
-    "tape": "^4.10.2"
+    "tape": "^4.11.0"
   },
   "dependencies": {
     "@mapbox/mbtiles": "^0.11.0",
     "d3-queue": "^3.0.7",
-    "ejs": "^2.6.2",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.1",
-    "open": "^6.3.0"
+    "open": "^6.4.0"
   },
   "repository": {
     "type": "git",

@@ -23,6 +23,7 @@
     "@mapbox/eslint-config-mapbox": "^2.0.1",
     "eslint": "^6.4.0",
     "eslint-plugin-node": "^10.0.0",
+    "rollup": "^1.25.2",
     "supertest": "^4.0.2",
     "tape": "^4.11.0"
   },
@@ -31,6 +32,7 @@
     "d3-queue": "^3.0.7",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "mapbox-gl": "^1.5.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.1",
     "open": "^6.4.0"

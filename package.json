@@ -11,7 +11,8 @@
     "lint": "eslint *.js test/",
     "pretest": "npm run lint",
     "test": "tape test/*.test.js",
-    "start": "node cli.js"
+    "start": "node cli.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "localhost",

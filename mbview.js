@@ -58,15 +58,6 @@ module.exports = {
 
   listen: function (config, onListen) {
     const format = config.tiles._info.format;
-
-
-    // app.get('/', (req, res) => {
-    //   if (format === 'pbf') {
-    //     res.render('vector', config);
-    //   } else {
-    //     res.render('raster', config);
-    //   }
-    // });
     app.get('/config.js', (req, res) => {
       res.type('js');
       res.render('config', config);

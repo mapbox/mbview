@@ -18,7 +18,8 @@ const map = new mapboxgl.Map({
 const layers = {
   pts: [],
   lines: [],
-  polygons: []
+  polygons: [],
+  raster: []
 }
 
 const lightColors = [
@@ -41,87 +42,101 @@ function randomColor(colors) {
 }
 
 map.on('load', function () {
-  Object.keys(SOURCES).forEach(function (sid) {
+  Object.entries(SOURCES).forEach(function ([sid, source]) {
 
-    map.addSource(sid, {
-      type: 'vector',
-      tiles: [
-        `http://localhost:${PORT}/${sid}/{z}/{x}/{y}.pbf`
-      ],
-      maxzoom: SOURCES[sid].maxzoom
-    });
-
-    SOURCES[sid].vector_layers.forEach(function (layer) {
-
-      const layerColor = '#' + randomColor(lightColors);
-
-      map.addLayer({
-        'id': `${layer.id}-polygons`,
-        'type': 'fill',
-        'source': sid,
-        'source-layer': layer.id,
-        'filter': ["==", "$type", "Polygon"],
-        'layout': {},
-        'paint': {
-          'fill-opacity': 0.1,
-          'fill-color': layerColor
-        }
+    if (source.format === 'pbf' && source.vector_layers && source.vector_layers.length) {
+      map.addSource(sid, {
+        type: 'vector',
+        tiles: [
+          `http://localhost:${PORT}/${sid}/{z}/{x}/{y}.pbf`
+        ],
+        maxzoom: SOURCES[sid].maxzoom
       });
 
-      map.addLayer({
-        'id': `${layer.id}-polygons-outline`,
-        'type': 'line',
-        'source': sid,
-        'source-layer': layer.id,
-        'filter': ["==", "$type", "Polygon"],
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        'paint': {
-          'line-color': layerColor,
-          'line-width': 1,
-          'line-opacity': 0.75
-        }
+      (source.vector_layers || []).forEach(function (layer) {
+
+        const layerColor = '#' + randomColor(lightColors);
+
+        map.addLayer({
+          'id': `${layer.id}-polygons`,
+          'type': 'fill',
+          'source': sid,
+          'source-layer': layer.id,
+          'filter': ["==", "$type", "Polygon"],
+          'layout': {},
+          'paint': {
+            'fill-opacity': 0.1,
+            'fill-color': layerColor
+          }
+        });
+
+        map.addLayer({
+          'id': `${layer.id}-polygons-outline`,
+          'type': 'line',
+          'source': sid,
+          'source-layer': layer.id,
+          'filter': ["==", "$type", "Polygon"],
+          'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          'paint': {
+            'line-color': layerColor,
+            'line-width': 1,
+            'line-opacity': 0.75
+          }
+        });
+
+        map.addLayer({
+          'id': `${layer.id}-lines`,
+          'type': 'line',
+          'source': sid,
+          'source-layer': layer.id,
+          'filter': ["==", "$type", "LineString"],
+          'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          'paint': {
+            'line-color': layerColor,
+            'line-width': 1,
+            'line-opacity': 0.75
+          }
+        });
+
+        map.addLayer({
+          'id': `${layer.id}-pts`,
+          'type': 'circle',
+          'source': sid,
+          'source-layer': layer.id,
+          'filter': ["==", "$type", "Point"],
+          'paint': {
+            'circle-color': layerColor,
+            'circle-radius': 2.5,
+            'circle-opacity': 0.75
+          }
+        });
+
+        layers.polygons.push(`${layer.id}-polygons`);
+        layers.polygons.push(`${layer.id}-polygons-outline`);
+        layers.lines.push(`${layer.id}-lines`);
+        layers.pts.push(`${layer.id}-pts`);
+
       });
-
+    } else if (source.format === 'png') {
+      map.addSource(
+        sid, {
+        type: 'raster',
+        tiles: [`http://localhost:${PORT}/${sid}/{z}/{x}/{y}.png`]
+      })
       map.addLayer({
-        'id': `${layer.id}-lines`,
-        'type': 'line',
-        'source': sid,
-        'source-layer': layer.id,
-        'filter': ["==", "$type", "LineString"],
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        'paint': {
-          'line-color': layerColor,
-          'line-width': 1,
-          'line-opacity': 0.75
-        }
-      });
-
-      map.addLayer({
-        'id': `${layer.id}-pts`,
-        'type': 'circle',
-        'source': sid,
-        'source-layer': layer.id,
-        'filter': ["==", "$type", "Point"],
-        'paint': {
-          'circle-color': layerColor,
-          'circle-radius': 2.5,
-          'circle-opacity': 0.75
-        }
-      });
-
-      layers.polygons.push(`${layer.id}-polygons`);
-      layers.polygons.push(`${layer.id}-polygons-outline`);
-      layers.lines.push(`${layer.id}-lines`);
-      layers.pts.push(`${layer.id}-pts`);
-
-    });
-  });
+        id: `${sid}-layer`,
+        type: 'raster',
+        source: sid,
+      })
+      layers.raster.push(`${sid}-layer`)
+    }
+  })
 });
 
 
@@ -255,4 +270,4 @@ function menuPopup() {
 document.getElementById('menu-filter').addEventListener('change', menuFilter)
 document.getElementById('menu-popup').addEventListener('change', menuPopup)
 
-window.app = {map, layers, get wantPopup(){return wantPopup}, popup}
+window.app = { map, layers, get wantPopup() { return wantPopup }, popup }

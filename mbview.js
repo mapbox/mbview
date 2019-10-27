@@ -10,10 +10,10 @@ const objectAssign = require('object-assign');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.static('node_modules/mapbox-gl/dist'));
+app.use(express.static(__dirname + '/public'))
+
 
 module.exports = {
-
   /**
    * Load a tileset and return a reference with metadata
    * @param {object} file reference to the tileset
@@ -58,13 +58,18 @@ module.exports = {
   listen: function (config, onListen) {
     const format = config.tiles._info.format;
 
-    app.get('/', (req, res) => {
-      if (format === 'pbf') {
-        res.render('vector', config);
-      } else {
-        res.render('raster', config);
-      }
-    });
+
+    // app.get('/', (req, res) => {
+    //   if (format === 'pbf') {
+    //     res.render('vector', config);
+    //   } else {
+    //     res.render('raster', config);
+    //   }
+    // });
+    app.get('/config.js', (req, res) => {
+      res.type('js')
+      res.render('config', config)
+    })
 
     app.get('/:source/:z/:x/:y.' + format, (req, res) => {
       const p = req.params;

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>mbview</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      #menu {
+        position: absolute;
+        top:10px;
+        right:10px;
+        z-index: 1;
+        color: white;
+        cursor: pointer;
+      }
+      #menu-container {
+        position: absolute;
+        display: none;
+        top: 50px;
+        right: 10px;
+        z-index: 1;
+        background-color: white;
+        padding: 20px;
+      }
+      .mbview_popup {
+        color: #333;
+        display: table;
+        font-family: "Open Sans", sans-serif;
+        font-size: 10px;
+      }
+
+      .mbview_feature:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+
+      .mbview_layer:before {
+        content: "#";
+      }
+
+      .mbview_layer {
+        display: block;
+        font-weight: bold;
+      }
+
+      .mbview_property {
+        display: table-row;
+      }
+
+      .mbview_property-value {
+        display: table-cell;
+      }
+
+      .mbview_property-name {
+        display: table-cell;
+        padding-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <svg class='icon menu w36 h36'>
+        <use xlink:href='#icon-menu'/>
+      </svg>
+    </div>
+    
+    <div id="menu-container">
+
+      <h4>Filter</h4>
+      <div id="menu-filter" class='rounded-toggle short inline'>
+        <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
+        <label for='filter-all'>all</label>
+        <input id='filter-polygons' type='radio' name='rtoggle' value='polygons'>
+        <label for='filter-polygons'>polygons</label>
+        <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
+        <label for='filter-lines'>lines</label>
+        <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
+        <label for='filter-pts'>points</label>
+      </div>
+
+      <h4>Popup</h4>
+      <div id="menu-popup" class='rounded-toggle short inline'>
+        <input id='show-popup' type='checkbox' name='ptoggle' value='all''>
+        <label for='show-popup'>show attributes</label>
+      </div>
+
+    </div>
+
+    <div id="map"></div>
+    <script src="/config.js"></script>
+    <script src="/main.js" type="module"></script>
+    <script src="/main.iife.js" nomodule></script>
+  </body>
+</html>

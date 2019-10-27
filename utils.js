@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const objectAssign = require('object-assign');
+const dedent = require('dedent')
 
 /**
  * Merge a configuration with tileset objects and
@@ -30,17 +31,17 @@ module.exports.mergeConfigurations = function (config, tilesets) {
  * @return {String} the instructions to run this thing
  */
 module.exports.usage = function () {
-  const u = [];
-  u.push('usage: mbview [options] [files]');
-  u.push('');
-  u.push(' --port sets port to use (default: 3000)');
-  u.push(' --quiet or -q supress all logging except the address to visit');
-  u.push(' -n don\'t automatically open the browser on start');
-  u.push(' --basemap, --base or --map sets the basemap style (default: dark)');
-  u.push(' --version returns module version');
-  u.push(' --help prints this message');
-  u.push('');
-  return u.join('\n');
+  return dedent`
+    usage: mbview [options] [files]
+    
+    --port sets port to use (default: 3000)
+    --center sets the map center (default: "-122.42,37.75")
+    --quiet or -q supress all logging except the address to visit
+    -n don\'t automatically open the browser on start
+    --basemap, --base or --map sets the basemap style (default: dark)
+    --version returns module version
+    --help prints this message
+  `
 };
 
 /**

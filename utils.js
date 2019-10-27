@@ -33,14 +33,13 @@ module.exports.mergeConfigurations = function (config, tilesets) {
 module.exports.usage = function () {
   return dedent`
     usage: mbview [options] [files]
-    
-    --port sets port to use (default: 3000)
-    --center sets the map center (default: "-122.42,37.75")
-    --quiet or -q supress all logging except the address to visit
-    -n don\'t automatically open the browser on start
-    --basemap, --base or --map sets the basemap style (default: dark)
-    --version returns module version
-    --help prints this message
+
+      --port sets port to use (default: 3000)
+      --quiet or -q supress all logging except the address to visit
+      -n don\'t automatically open the browser on start
+      --basemap, --base or --map sets the basemap style (default: dark)
+      --version returns module version
+      --help prints this message
   `;
 };
 

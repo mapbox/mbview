@@ -79,21 +79,32 @@
     <div id="menu-container">
 
       <h4>Filter</h4>
-      <div id="menu-filter" class='rounded-toggle short inline'>
-        <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
-        <label for='filter-all'>all</label>
-        <input id='filter-polygons' type='radio' name='rtoggle' value='polygons'>
-        <label for='filter-polygons'>polygons</label>
-        <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
-        <label for='filter-lines'>lines</label>
-        <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
-        <label for='filter-pts'>points</label>
+      <div id="menu-filter" class='toggle-group bg-darken10 px3 py3 round-full'>
+        <label class="toggle-container" for='filter-all'>
+          <input id='filter-all' type='radio' name='rtoggle' value='all' checked='checked'>
+          <div class="toggle toggle--s toggle--white color-gray txt-normal px6 py0">all</div>
+        </label>
+        <label class="toggle-container" for='filter-polygons'>
+          <input id='filter-polygons' type='radio' name='rtoggle' value='polygons'>
+          <div class="toggle toggle--s toggle--white color-gray txt-normal px6 py0">polygons</div>
+        </label>
+        <label class="toggle-container" for='filter-lines'>
+          <input id='filter-lines' type='radio' name='rtoggle' value='lines'>
+          <div class="toggle toggle--s toggle--white color-gray txt-normal px6 py0">lines</div>
+        </label>
+        <label class="toggle-container" for='filter-pts'>
+          <input id='filter-pts' type='radio' name='rtoggle' value='pts'>
+          <div class="toggle toggle--s toggle--white color-gray txt-normal px6 py0">points</div>
+        </label>
       </div>
 
       <h4>Popup</h4>
       <div id="menu-popup" class='rounded-toggle short inline'>
-        <input id='show-popup' type='checkbox' name='ptoggle' value='all''>
-        <label for='show-popup'>show attributes</label>
+        <label class='switch-container' for='show-popup'>
+          <input id='show-popup' type='checkbox' name='ptoggle' value='all''>
+          <div class='switch mr3'></div>
+          Show attributes
+        </label>
       </div>
 
     </div>

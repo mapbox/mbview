@@ -52,7 +52,6 @@ test('MBView.serve', (t) => {
       .expect('Content-Type', 'application/javascript; charset=UTF-8')
       .end((err, res) => {
         const { text } = res;
-        console.log({ text });
         t.true(text.includes('bajahighways'), 'loads a map with lines from first tileset');
         t.true(text.includes('hospitales'), 'loads points from first layer in second tileset');
         t.true(text.includes('playas'), 'loads points from second layer in second tileset');

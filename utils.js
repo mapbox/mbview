@@ -1,8 +1,8 @@
-'use strict';
+
 
 const fs = require('fs');
 const objectAssign = require('object-assign');
-const dedent = require('dedent')
+const dedent = require('dedent');
 
 /**
  * Merge a configuration with tileset objects and
@@ -41,7 +41,7 @@ module.exports.usage = function () {
     --basemap, --base or --map sets the basemap style (default: dark)
     --version returns module version
     --help prints this message
-  `
+  `;
 };
 
 /**

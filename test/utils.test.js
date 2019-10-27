@@ -1,4 +1,4 @@
-'use strict';
+
 
 const test = require('tape').test;
 const fs = require('fs');

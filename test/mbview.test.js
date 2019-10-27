@@ -1,4 +1,4 @@
-'use strict';
+
 
 const MBView = require('../mbview');
 const request = require('supertest');
@@ -48,23 +48,21 @@ test('MBView.serve', (t) => {
     server = config.server;
 
     request('localhost:9000')
-      .get('/')
-      .expect('Content-Type', 'text/html; charset=utf-8')
+      .get('/config.js')
+      .expect('Content-Type', 'application/javascript; charset=UTF-8')
       .end((err, res) => {
-        let match = res.text.match(/bajahighways-lines/)[0];
-        t.true(match, 'loads a map with lines from first tileset');
-        match = res.text.match(/hospitales-pts/)[0];
-        t.true(match, 'loads points from first layer in second tileset');
-        match = res.text.match(/playas-pts/)[0];
-        t.true(match, 'loads points from second layer in second tileset');
-        match = res.text.match(/menu-container/)[0];
-        t.true(match, 'should have a menu');
+        const { text } = res;
+        console.log({ text });
+        t.true(text.includes('bajahighways'), 'loads a map with lines from first tileset');
+        t.true(text.includes('hospitales'), 'loads points from first layer in second tileset');
+        t.true(text.includes('playas'), 'loads points from second layer in second tileset');
       });
 
     request('localhost:9000')
       .get('/#14/32.5376/-117.0374')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .end((err) => {
+      .expect('Content-Type', 'text/html; charset=UTF-8')
+      .end((err, res) => {
+        t.true(res.text.includes('menu-container'), 'should have a menu');
         t.error(err, 'responds to Mapbox GL JS panning');
       });
 

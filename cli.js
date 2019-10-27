@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
-'use strict';
+
 
 const argv = require('minimist')(process.argv.slice(2), {
   boolean: ['n', 'quiet', 'q']
@@ -29,7 +29,8 @@ if (argv.version || argv.v) {
 try {
   mbtiles.forEach((f) => { fs.statSync(f).isFile(); });
 } catch (e) {
-  return console.error(e);
+  console.error(e);
+  process.exit(1);
 }
 
 argv.basemap = argv.basemap || argv.base || argv.map || 'dark';

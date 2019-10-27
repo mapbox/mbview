@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-'use strict';
+
 
 const express = require('express');
+
 const app = express();
 const MBTiles = require('@mapbox/mbtiles');
 const q = require('d3-queue').queue();
@@ -10,7 +11,7 @@ const objectAssign = require('object-assign');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 
 
 module.exports = {
@@ -67,9 +68,9 @@ module.exports = {
     //   }
     // });
     app.get('/config.js', (req, res) => {
-      res.type('js')
-      res.render('config', config)
-    })
+      res.type('js');
+      res.render('config', config);
+    });
 
     app.get('/:source/:z/:x/:y.' + format, (req, res) => {
       const p = req.params;

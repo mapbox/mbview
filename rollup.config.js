@@ -1,13 +1,12 @@
-import postcss from 'rollup-plugin-postcss'
-import resolve from 'rollup-plugin-node-resolve'
+import postcss from 'rollup-plugin-postcss';
+import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import json from 'rollup-plugin-json'
-import path from 'path'
+import json from 'rollup-plugin-json';
+import path from 'path';
 
-const dir = 'dist'
-const input = 'src/main.js'
-const sourcemap = true
-const sharedPlugins = () => [json(), postcss(), resolve(), commonjs()]
+const input = 'src/main.js';
+const sourcemap = true;
+const sharedPlugins = () => [json(), postcss(), resolve(), commonjs()];
 export default [
   {
     input,
@@ -15,7 +14,7 @@ export default [
     output: {
       dir: 'public',
       format: 'esm',
-      sourcemap,
+      sourcemap
     },
     manualChunks(id) {
       // from https://philipwalton.com/articles/using-native-javascript-modules-in-production-today/
@@ -28,12 +27,12 @@ export default [
     }
   }, {
     input,
-    plugins: [...sharedPlugins()], 
+    plugins: [...sharedPlugins()],
     output: {
       name: 'app',
       file: 'public/main.umd.js',
       format: 'umd',
-      sourcemap,
-    },
+      sourcemap
+    }
   }
-]
+];

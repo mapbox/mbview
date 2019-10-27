@@ -23,6 +23,7 @@
   "devDependencies": {
     "@mapbox/eslint-config-mapbox": "^2.0.1",
     "eslint": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "rollup": "^1.25.2",
     "rollup-plugin-commonjs": "^10.1.0",

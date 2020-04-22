@@ -7,10 +7,12 @@
   },
   "main": "server.js",
   "scripts": {
+    "build": "rollup -c",
     "lint": "eslint *.js test/",
     "pretest": "npm run lint",
     "test": "tape test/*.test.js",
-    "start": "node cli.js"
+    "start": "node cli.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "localhost",
@@ -22,15 +24,24 @@
   "devDependencies": {
     "@mapbox/eslint-config-mapbox": "^2.0.1",
     "eslint": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
+    "rollup": "^1.25.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "supertest": "^4.0.2",
     "tape": "^4.11.0"
   },
   "dependencies": {
+    "@mapbox/assembly": "^0.24.0",
     "@mapbox/mbtiles": "^0.11.0",
     "d3-queue": "^3.0.7",
+    "dedent": "^0.7.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "mapbox-gl": "^1.5.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.1",
     "open": "^6.4.0"

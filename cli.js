@@ -40,7 +40,7 @@ const MBView = require('./mbview');
 const params = {
   center: argv.center || [-122.42, 37.75],
   mbtiles: mbtiles,
-  port: argv.port || 3000,
+  port: argv.port || 3000 + Math.floor(Math.random() * 50000),
   zoom: 12,
   quiet: argv.q || argv.quiet,
   basemap: argv.basemap,

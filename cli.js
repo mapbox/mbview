@@ -49,7 +49,7 @@ const params = {
 };
 
 MBView.serve(params, (err, config) => {
-  var fullUrl = config.url + ':' + config.port;
+  let fullUrl = config.url + ':' + config.port;
   console.log('Listening on ' + fullUrl);
   if (!argv.n) open(fullUrl);
 });

@@ -34,6 +34,7 @@ module.exports.usage = function () {
   u.push('usage: mbview [options] [files]');
   u.push('');
   u.push(' --port sets port to use (default: 3000)');
+  u.push(' --url sets host to use (default: http://localhost)');
   u.push(' --quiet or -q supress all logging except the address to visit');
   u.push(' -n don\'t automatically open the browser on start');
   u.push(' --basemap, --base or --map sets the basemap style (default: dark)');

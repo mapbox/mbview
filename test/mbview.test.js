@@ -38,6 +38,7 @@ test('MBView.serve', (t) => {
       __dirname + '/fixtures/twolayers.mbtiles',
       __dirname + '/fixtures/038.mbtiles'
     ],
+    url: 'http://localhost',
     port: 9000,
     accessToken: 'pk.foo.bar'
   };

@@ -27,7 +27,7 @@
     "tape": "^4.11.0"
   },
   "dependencies": {
-    "@mapbox/mbtiles": "^0.11.0",
+    "@mapbox/mbtiles": "^0.12.1",
     "d3-queue": "^3.0.7",
     "ejs": "^2.7.1",
     "express": "^4.17.1",

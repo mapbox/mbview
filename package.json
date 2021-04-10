@@ -43,6 +43,6 @@
   },
   "homepage": "https://github.com/mapbox/mbview#readme",
   "engines": {
-    "node": ">=8.10"
+    "node": ">=12"
   }
 }

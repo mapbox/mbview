@@ -66,7 +66,7 @@ module.exports = {
     });
 
     app.get('/config', (req, res) => {
-        return res.json(config);
+      return res.json(config);
     });
 
     app.get('/:source/:z/:x/:y.' + format, (req, res) => {

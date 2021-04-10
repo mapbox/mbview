@@ -32,7 +32,6 @@
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "minimist": "^1.2.0",
-    "object-assign": "^4.1.1",
     "open": "^6.4.0"
   },
   "repository": {

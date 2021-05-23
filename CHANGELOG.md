@@ -1,5 +1,8 @@
 # Changelog
 
+## [5.1.0] - 2021-05-23
+- Add option to specify host ([#82](https://github.com/mapbox/mbview/pull/82/))
+
 ## [5.0.0] - 2021-05-23
 - Breaking: remove support for Node 8
 - Add option to show tile boundaries

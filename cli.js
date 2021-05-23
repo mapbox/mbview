@@ -49,6 +49,6 @@ const params = {
 };
 
 MBView.serve(params, (err, config) => {
-  console.log('Listening on http://'+ config.host + ':' + config.port);
-  if (!argv.n) open('http://'+ config.host + ':' + config.port);
+  console.log('Listening on http://' + config.host + ':' + config.port);
+  if (!argv.n) open('http://' + config.host + ':' + config.port);
 });

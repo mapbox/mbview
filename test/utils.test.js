@@ -3,14 +3,13 @@
 const test = require('tape').test;
 const fs = require('fs');
 const utils = require('../utils');
-const objectAssign = require('object-assign');
 
 const fixtures = {
   metadata: JSON.parse(fs.readFileSync(__dirname + '/fixtures/metadata.json'))
 };
 
 function mockMetadata (name) {
-  return objectAssign({}, fixtures.metadata, {
+  return Object.assign({}, fixtures.metadata, {
     basename: name + '.mbtiles',
     center: [32, -120, 14],
     name: name + '.mbtiles',

@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const objectAssign = require('object-assign');
 
 /**
  * Merge a configuration with tileset objects and
@@ -14,13 +13,13 @@ module.exports.mergeConfigurations = function (config, tilesets) {
   const tilehash = tilesets.reduce((prev, curr) => {
     const c = {};
     c[curr.basename] = curr;
-    return objectAssign({}, prev, c);
+    return Object.assign({}, prev, c);
   }, {});
-  const smart = objectAssign({}, config, tilesets[0]);
+  const smart = Object.assign({}, config, tilesets[0]);
   const centerZoom = smart.center.pop();
   smart.zoom = smart.zoom || centerZoom;
   smart.center.push(smart.zoom);
-  return objectAssign({}, smart, {
+  return Object.assign({}, smart, {
     sources: tilehash
   });
 };

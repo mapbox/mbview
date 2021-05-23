@@ -29,7 +29,7 @@ test('MBView.loadTiles', (t) => {
 });
 
 test('MBView.serve', (t) => {
-  t.plan(8);
+  t.plan(9);
 
   const params = {
     basemap: 'dark',
@@ -59,6 +59,13 @@ test('MBView.serve', (t) => {
         t.true(match, 'loads points from second layer in second tileset');
         match = res.text.match(/menu-container/)[0];
         t.true(match, 'should have a menu');
+      });
+
+    request('localhost:9000')
+      .get('/config')
+      .expect(200)
+      .end((err) => {
+        t.error(err, 'serves config');
       });
 
     request('localhost:9000')

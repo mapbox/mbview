@@ -6,7 +6,6 @@ const app = express();
 const MBTiles = require('@mapbox/mbtiles');
 const q = require('d3-queue').queue();
 const utils = require('./utils');
-const objectAssign = require('object-assign');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -25,7 +24,7 @@ module.exports = {
       tiles.getInfo((err, info) => {
         if (err) throw err;
 
-        const tileset = objectAssign({}, info, {
+        const tileset = Object.assign({}, info, {
           tiles: tiles
         });
 
@@ -64,6 +63,10 @@ module.exports = {
       } else {
         res.render('raster', config);
       }
+    });
+
+    app.get('/config', (req, res) => {
+      return res.json(config);
     });
 
     app.get('/:source/:z/:x/:y.' + format, (req, res) => {

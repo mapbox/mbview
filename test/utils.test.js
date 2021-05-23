@@ -1,14 +1,15 @@
-var test = require('tape').test;
-var fs = require('fs');
-var utils = require('../utils');
-var objectAssign = require('object-assign');
+'use strict';
 
-var fixtures = {
+const test = require('tape').test;
+const fs = require('fs');
+const utils = require('../utils');
+
+const fixtures = {
   metadata: JSON.parse(fs.readFileSync(__dirname + '/fixtures/metadata.json'))
 };
 
 function mockMetadata (name) {
-  return objectAssign({}, fixtures.metadata, {
+  return Object.assign({}, fixtures.metadata, {
     basename: name + '.mbtiles',
     center: [32, -120, 14],
     name: name + '.mbtiles',
@@ -16,20 +17,20 @@ function mockMetadata (name) {
   });
 }
 
-test('mergeConfigurations', function (t) {
+test('mergeConfigurations', (t) => {
   var config = {
     port: 3000,
     host: 'localhost'
   };
 
-  var tilesets = [
+  const tilesets = [
     mockMetadata('sf02'),
     mockMetadata('sf03'),
     mockMetadata('sf04')
   ];
 
-  var got = utils.mergeConfigurations(config, tilesets);
-  var want = ['sf02.mbtiles', 'sf03.mbtiles', 'sf04.mbtiles'];
+  const got = utils.mergeConfigurations(config, tilesets);
+  const want = ['sf02.mbtiles', 'sf03.mbtiles', 'sf04.mbtiles'];
 
   t.equal(got.port, 3000, 'retains original configuration');
   t.equal(got.zoom, 14, 'got zoom level from first tileset');
@@ -40,15 +41,15 @@ test('mergeConfigurations', function (t) {
   t.end();
 });
 
-test('usage', function (t) {
-  var got = utils.usage();
+test('usage', (t) => {
+  const got = utils.usage();
   t.true(got.match(/usage/), 'returns some instructions');
   t.true(got.length > 100, 'lots of instructions');
   t.end();
 });
 
-test('version', function (t) {
-  var got = utils.version();
+test('version', (t) => {
+  const got = utils.version();
   t.true(got.match(/^\d+\.\d+\.\d+$/), 'finds basic semver in package.json');
   t.end();
 });

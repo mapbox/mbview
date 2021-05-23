@@ -1,5 +1,6 @@
-var fs = require('fs');
-var objectAssign = require('object-assign');
+'use strict';
+
+const fs = require('fs');
 
 /**
  * Merge a configuration with tileset objects and
@@ -9,16 +10,16 @@ var objectAssign = require('object-assign');
  * @return {object} updated config object with sources appended
  */
 module.exports.mergeConfigurations = function (config, tilesets) {
-  var tilehash = tilesets.reduce(function (prev, curr) {
-    var c = {};
+  const tilehash = tilesets.reduce((prev, curr) => {
+    const c = {};
     c[curr.basename] = curr;
-    return objectAssign({}, prev, c);
+    return Object.assign({}, prev, c);
   }, {});
-  var smart = objectAssign({}, config, tilesets[0]);
-  var centerZoom = smart.center.pop();
+  const smart = Object.assign({}, config, tilesets[0]);
+  const centerZoom = smart.center.pop();
   smart.zoom = smart.zoom || centerZoom;
   smart.center.push(smart.zoom);
-  return objectAssign({}, smart, {
+  return Object.assign({}, smart, {
     sources: tilehash
   });
 };
@@ -28,7 +29,7 @@ module.exports.mergeConfigurations = function (config, tilesets) {
  * @return {String} the instructions to run this thing
  */
 module.exports.usage = function () {
-  var u = [];
+  const u = [];
   u.push('usage: mbview [options] [files]');
   u.push('');
   u.push(' --port sets port to use (default: 3000)');
@@ -47,6 +48,6 @@ module.exports.usage = function () {
  * @return {String} version number
  */
 module.exports.version = function () {
-  var data = fs.readFileSync(__dirname + '/package.json');
+  const data = fs.readFileSync(__dirname + '/package.json');
   return JSON.parse(data).version;
 };

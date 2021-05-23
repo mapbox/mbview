@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
+'use strict';
 
-var argv = require('minimist')(process.argv.slice(2), {
+const argv = require('minimist')(process.argv.slice(2), {
   boolean: ['n', 'quiet', 'q']
 });
-var open = require('open');
-var fs = require('fs');
-var utils = require('./utils');
+const open = require('open');
+const fs = require('fs');
+const utils = require('./utils');
 
-var mbtiles = argv._;
-var accessToken = argv.MapboxAccessToken ||
+const mbtiles = argv._;
+const accessToken = argv.MapboxAccessToken ||
   process.env.MAPBOX_ACCESS_TOKEN ||
   process.env.MapboxAccessToken;
 
@@ -26,17 +27,17 @@ if (argv.version || argv.v) {
 }
 
 try {
-  mbtiles.forEach(function (f) { fs.statSync(f).isFile(); });
-} catch(e) {
+  mbtiles.forEach((f) => { fs.statSync(f).isFile(); });
+} catch (e) {
   return console.error(e);
 }
 
 argv.basemap = argv.basemap || argv.base || argv.map || 'dark';
 
 
-var MBView = require('./mbview');
+const MBView = require('./mbview');
 
-var params = {
+const params = {
   center: argv.center || [-122.42, 37.75],
   mbtiles: mbtiles,
   host: argv.host || 'localhost',
@@ -47,7 +48,7 @@ var params = {
   accessToken: accessToken
 };
 
-MBView.serve(params, function (err, config) {
+MBView.serve(params, (err, config) => {
   console.log('Listening on http://'+ config.host + ':' + config.port);
-  if (!argv.n) open('http://'+config.host + ':' + config.port);
+  if (!argv.n) open('http://'+ config.host + ':' + config.port);
 });

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
+'use strict';
 
-var express = require('express');
-var app = express();
-var MBTiles = require('@mapbox/mbtiles');
-var q = require('d3-queue').queue();
-var utils = require('./utils');
-var objectAssign = require('object-assign');
+const express = require('express');
+const app = express();
+const MBTiles = require('@mapbox/mbtiles');
+const q = require('d3-queue').queue();
+const utils = require('./utils');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -25,18 +25,18 @@ module.exports = {
    * @param {function} callback that returns the resulting tileset object
    */
   loadTiles: function (file, callback) {
-    new MBTiles(file, function(err, tiles) {
+    new MBTiles(file, ((err, tiles) => {
       if (err) throw err;
-      tiles.getInfo(function (err, info) {
+      tiles.getInfo((err, info) => {
         if (err) throw err;
 
-        var tileset = objectAssign({}, info, {
+        const tileset = Object.assign({}, info, {
           tiles: tiles
         });
 
         callback(null, tileset);
       });
-    });
+    }));
   },
 
   /**
@@ -46,24 +46,24 @@ module.exports = {
   * @param {function} callback with the server configuration loaded
   */
   serve: function (config, callback) {
-    var loadTiles = this.loadTiles;
-    var listen = this.listen;
+    const loadTiles = this.loadTiles;
+    const listen = this.listen;
 
-    config.mbtiles.forEach(function (file) {
+    config.mbtiles.forEach((file) => {
       q.defer(loadTiles, file);
     });
 
-    q.awaitAll(function (error, tilesets) {
+    q.awaitAll((error, tilesets) => {
       if (error) throw error;
-      var finalConfig = utils.mergeConfigurations(config, tilesets);
+      const finalConfig = utils.mergeConfigurations(config, tilesets);
       listen(finalConfig, callback);
     });
   },
 
   listen: function (config, onListen) {
-    var format = config.tiles._info.format;
+    const format = config.tiles._info.format;
 
-    app.get('/', function (req, res) {
+    app.get('/', (req, res) => {
       if (format === 'pbf') {
         res.render('vector', config);
       } else {
@@ -71,11 +71,15 @@ module.exports = {
       }
     });
 
-    app.get('/:source/:z/:x/:y.' + format, function (req, res) {
-      var p = req.params;
+    app.get('/config', (req, res) => {
+      return res.json(config);
+    });
 
-      var tiles = config.sources[p.source].tiles;
-      tiles.getTile(p.z, p.x, p.y, function (err, tile, headers) {
+    app.get('/:source/:z/:x/:y.' + format, (req, res) => {
+      const p = req.params;
+
+      const tiles = config.sources[p.source].tiles;
+      tiles.getTile(p.z, p.x, p.y, (err, tile, headers) => {
         if (err) {
           res.end();
         } else {
@@ -85,7 +89,7 @@ module.exports = {
       });
     });
 
-    config.server = app.listen(config.port, config.host, function () {
+    config.server = app.listen(config.port, config.host, () => {
       onListen(null, config);
     });
   }

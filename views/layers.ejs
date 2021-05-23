@@ -33,6 +33,22 @@
   });
 
   map.addLayer({
+    'id': '<%= layer.id %>-polygons-vertices',
+    'type': 'circle',
+    'source': '<%= sid %>',
+    'source-layer': '<%= layer.id %>',
+    'filter': ["==", "$type", "Polygon"],
+    'layout': {
+      'visibility': 'none',
+    },
+    'paint': {
+      'circle-color': layerColor,
+      'circle-radius': 2,
+      'circle-opacity': 0.75
+    }
+  });
+
+  map.addLayer({
     'id': '<%= layer.id %>-lines',
     'type': 'line',
     'source': '<%= sid %>',
@@ -46,6 +62,22 @@
       'line-color': layerColor,
       'line-width': 1,
       'line-opacity': 0.75
+    }
+  });
+
+  map.addLayer({
+    'id': '<%= layer.id %>-lines-vertices',
+    'type': 'circle',
+    'source': '<%= sid %>',
+    'source-layer': '<%= layer.id %>',
+    'filter': ["==", "$type", "LineString"],
+    'layout': {
+      'visibility': 'none',
+    },
+    'paint': {
+      'circle-color': layerColor,
+      'circle-radius': 2,
+      'circle-opacity': 0.75
     }
   });
 
@@ -66,5 +98,7 @@
   layers.polygons.push('<%= layer.id %>-polygons-outline');
   layers.lines.push('<%= layer.id %>-lines');
   layers.pts.push('<%= layer.id %>-pts');
+  layers.polygonsVertices.push('<%= layer.id %>-polygons-vertices');
+  layers.linesVertices.push('<%= layer.id %>-lines-vertices');
 
 <% }); %>

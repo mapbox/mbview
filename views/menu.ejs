@@ -37,6 +37,11 @@
     <input id='show-popup' type='checkbox' name='ptoggle' value='all''>
     <label for='show-popup'>show attributes</label>
   </div>
+  <h4>Tiles</h4>
+  <div id="menu-popup" onchange="menuTiles()" class='rounded-toggle short inline'>
+    <input id='show-tiles' type='checkbox' name='ttoggle' value='all''>
+    <label for='show-tiles'>show tile boundaries</label>
+  </div>
 </div>
 
 <script>
@@ -87,6 +92,12 @@ function menuFilter() {
 
 function menuPopup() {
   wantPopup = document.querySelector("#show-popup").checked;
+}
+
+
+function menuTiles() {
+  wantTileBounds = document.querySelector("#show-tiles").checked;
+  map.showTileBoundaries = wantTileBounds;
 }
 
 </script>

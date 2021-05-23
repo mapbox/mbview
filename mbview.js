@@ -11,6 +11,12 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 module.exports = {
 
   /**
@@ -83,7 +89,7 @@ module.exports = {
       });
     });
 
-    config.server = app.listen(config.port, () => {
+    config.server = app.listen(config.port, config.host, () => {
       onListen(null, config);
     });
   }

@@ -40,6 +40,7 @@ const MBView = require('./mbview');
 const params = {
   center: argv.center || [-122.42, 37.75],
   mbtiles: mbtiles,
+  host: argv.host || 'localhost',
   port: argv.port || 3000,
   zoom: 12,
   quiet: argv.q || argv.quiet,
@@ -48,6 +49,6 @@ const params = {
 };
 
 MBView.serve(params, (err, config) => {
-  console.log('Listening on http://localhost:' + config.port);
-  if (!argv.n) open('http://localhost:' + config.port);
+  console.log('Listening on http://' + config.host + ':' + config.port);
+  if (!argv.n) open('http://' + config.host + ':' + config.port);
 });

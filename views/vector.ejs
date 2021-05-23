@@ -97,7 +97,7 @@ map.on('load', function () {
     map.addSource('<%= sid %>', {
       type: 'vector',
       tiles: [
-        'http://localhost:<%= port %>/<%= sid %>/{z}/{x}/{y}.pbf'
+        'http://<%= host %>:<%= port %>/<%= sid %>/{z}/{x}/{y}.pbf'
       ],
       maxzoom: <%= sources[sid].maxzoom %>
     });
@@ -108,7 +108,10 @@ map.on('load', function () {
 });
 
 
-function displayValue(value) {
+function displayValue(value,propName) {
+  if (propName=== '@timestamp'){
+    return value.toString() + "<br>[ " + (new Date(value*1000)).toISOString() + " ]";
+  }
   if (typeof value === 'undefined' || value === null) return value;
   if (typeof value === 'object' ||
       typeof value === 'number' ||
@@ -119,7 +122,7 @@ function displayValue(value) {
 function renderProperty(propertyName, property) {
   return '<div class="mbview_property">' +
     '<div class="mbview_property-name">' + propertyName + '</div>' +
-    '<div class="mbview_property-value">' + displayValue(property) + '</div>' +
+    '<div class="mbview_property-value">' + displayValue(property,propertyName) + '</div>' +
     '</div>';
 }
 

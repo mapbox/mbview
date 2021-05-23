@@ -18,7 +18,7 @@ function mockMetadata (name) {
 }
 
 test('mergeConfigurations', (t) => {
-  var config = {
+  const config = {
     port: 3000,
     host: 'localhost'
   };

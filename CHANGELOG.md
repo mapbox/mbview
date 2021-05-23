@@ -1,6 +1,6 @@
 # Changelog
 
-## [5.0.0] - 2020-07-02
+## [5.0.0] - 2021-05-23
 - Breaking: remove support for Node 8
 - Add option to show tile boundaries
 - Test on Node 14
